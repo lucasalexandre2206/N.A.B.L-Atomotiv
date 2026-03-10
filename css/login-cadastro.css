@@ -1,0 +1,97 @@
+/* Reset básico para remover margens padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Fundo azul e centralização total na tela */
+body {
+    background-color: #4179d9; 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* O cartão branco */
+.card-cadastro {
+    background-color: white;
+    padding: 40px 70px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-size: 2.7rem;
+    margin-bottom: 0,2px;
+    color: #000;
+}
+h2{
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+    color: #000;
+}
+/* Estilo dos campos de entrada */
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+    width: 140%;
+    right: +50px;
+    left: -50px;
+    padding-left: 10px;
+    display: flex;   
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 2px solid #555;
+    border-radius: 25px; /* Bordas bem arredondadas */
+    outline: none;
+    font-size: 14px;
+}
+
+
+.input-group .icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+}
+
+/* Botão azul */
+.btn-cadastrar {
+    width: 100%;
+    padding: 12px;
+    background-color: #0047AB; /* Azul escuro do botão */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-cadastrar:hover {
+    background-color: #003580;
+}
+
+.footer-text {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.footer-text a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}

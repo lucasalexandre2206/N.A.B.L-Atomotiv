@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="css/login-cadastro.css">
+</head>
+<body>
+
+    <main class="container">
+        
+        <section class="card-cadastro">
+            <h1>Cadastro</h1>
+            <h2>de usuarios</h2>
+
+            <form  id="">
+                <div class="input-group">
+                    <input type="text" placeholder="Usuário"id="usuario">
+                    <span class="icon">👤</span>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="matricula" inputmode="numeric" placeholder="Matricola do Funcionário">
+                    <span class="icon">🆔</span>
+                    
+                </div>
+
+                <div class="input-group">
+                    <input type="text" placeholder="Cargo"id="cargo">
+                    <span class="icon">🏢</span>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" placeholder="Senha"id="senha">
+                    <span class="icon">🔒</span>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" placeholder="Confirmar senha"id="confirmarSenha">
+                    <span class="icon">🔒</span>
+                </div>
+
+                <button onclick="home()" type="button" class="btn-cadastrar">Cadastrar</button>
+            </form>
+
+            <p class="footer-text">
+                Tem uma conta? <a href="#">Login</a>
+            </p>
+        </section>
+
+    </main>
+
+</body>
+<script src="js/login-cadastro.js"></script>
+
+</html>
