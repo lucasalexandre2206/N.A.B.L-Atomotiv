@@ -6,8 +6,6 @@
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
-    margin-left: 10px;
-    margin-right: 5px;
 }
 
 .titulo{
@@ -22,9 +20,9 @@
 
 .card-geral{
     display: flex;
-    gap: -50px;
-    justify-content: right;
-    
+    gap: 20px;
+    justify-content: center;
+    padding-left: 15vh;
 }
 
 .card{
