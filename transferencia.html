@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrada e Saída</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Entrada e Saída</h1>
+
+<div class="container">
+
+    <div class="form-group">
+        <label>Tipo de Movimentação</label>
+        <select id="tipo">
+            <option>Entrada</option>
+            <option>Saída</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Produto</label>
+        <select id="produto">
+            <option>Produto X</option>
+            <option>Produto Y</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Quantidade</label>
+        <input type="number" id="quantidade" placeholder="Ex: 50">
+    </div>
+
+    <div class="form-group">
+        <label>Responsável</label>
+        <input type="text" id="responsavel" placeholder="Nome do Responsável">
+    </div>
+
+    <div class="form-group observacao">
+        <label>Observação</label>
+        <textarea id="obs" placeholder="Informações adicionais (opcional)"></textarea>
+    </div>
+
+    <button onclick="registrar()">Registrar</button>
+
+</div>
+
+<script src="../../Transferencia.js"></script>
+</body>
+</html>
