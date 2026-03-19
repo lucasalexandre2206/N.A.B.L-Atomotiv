@@ -1,5 +1,14 @@
+*{
+  
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 470;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
 body {
-  margin: 10px;
   font-family: Arial;
   background: #eaeaea;
 }
@@ -9,54 +18,52 @@ body {
   display: flex;
 }
 
-
-.sidebar {
-  width: 80px;
-  background: #0b3d91;
-  color: white;
-  height: 100vh;
-  text-align: center;
-  padding-top: 10px;
-}
-
-
-.sidebar div {
-  margin: 20px 0;
-  font-size: 12px;
-}
-
-
 .main {
   flex: 1;
-  padding: 20px;
+  margin-left: 15vh;
+  margin-right: 2vh;
 }
 
 
 h2 {
+  padding-top: 15px;
   text-align: center;
+  padding-bottom: 15px;
 }
 
 
 .cards {
   display: flex;
   gap: 15px;
-  margin: 20px 0;
+  margin: 40px 0;
+ 
 }
 
 
 .card {
   flex: 1;
-  background: #114ea3;
+  background: #004aad;
   color: white;
-  padding: 15px;
-  border-radius: 15px;
+  padding: 40px;
+  border-radius: 20px;
 }
 
 
 .titulo {
+  padding-bottom:30px;
   text-align: center;
 }
+.titulo1 {
+  padding-top: 30px;
+  text-align: center;
+  padding-bottom: 30px;
+}
 
+.titulo2 {
+  padding-top: 30px;
+  text-align: center;
+  padding-bottom: 30px;
+}
 
 .alerta {
   background: #ff5c5c;

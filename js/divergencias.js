@@ -1,3 +1,4 @@
+
 // Dados simulados (como se viessem do Java/backend)
 const dados = [
   {
