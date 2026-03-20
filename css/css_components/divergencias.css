@@ -2,7 +2,6 @@
   
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 470;
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
@@ -16,6 +15,7 @@ body {
 
 .container {
   display: flex;
+  padding: 40px;
 }
 
 .main {
@@ -25,12 +25,11 @@ body {
 }
 
 
-h2 {
-  padding-top: 15px;
-  text-align: center;
-  padding-bottom: 15px;
+h1{
+text-align:center;
+color:#114fa8;
+margin-bottom:30px;
 }
-
 
 .cards {
   display: flex;
@@ -52,17 +51,24 @@ h2 {
 .titulo {
   padding-bottom:30px;
   text-align: center;
+  color:#114fa8;
+  font-size: 25px;
+
 }
 .titulo1 {
   padding-top: 30px;
   text-align: center;
   padding-bottom: 30px;
+  color:#114fa8;
+  font-size: 25px;
 }
 
 .titulo2 {
   padding-top: 30px;
   text-align: center;
-  padding-bottom: 30px;
+  padding-bottom: 30px;  
+  color:#114fa8;
+  font-size: 25px;
 }
 
 .alerta {

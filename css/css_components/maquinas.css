@@ -12,12 +12,15 @@ body {
 h1 {
     color: #114fa8;
     text-align: center;
+    margin-bottom: 40px;
 }
+
 
 h2 {
     margin-top: 40px;
     color: #114fa8;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .form {

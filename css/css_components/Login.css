@@ -22,7 +22,7 @@ body {
 /* Lado Azul (Logo) */
 .lado-logo {
     flex: 1;
-    background: linear-gradient(135deg, #4a7bd1, #e0e3e8);
+    background: linear-gradient(135deg, #114fa8,#c1d3f3);
     display: flex;
     justify-content: center;
     align-items: center;
