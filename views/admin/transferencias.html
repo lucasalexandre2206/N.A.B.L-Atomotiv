@@ -54,40 +54,41 @@
         <h1>Histórico de movimentação</h1>
 
         <div class="tabela-area">
-            <div class="historico-filtros">
-                <div class="buscar-box">
-                    <span class="icone-busca">⌕</span>
-                    <input type="text" placeholder="Buscar Produto...">
-                </div>
-
-                <select>
-                    <option>Todos os tipos</option>
-                    <option>Entrada</option>
-                    <option>Saída</option>
-                </select>
-
-                <select>
-                    <option>Data</option>
-                    <option>Hoje</option>
-                    <option>Semana</option>
-                    <option>Mês</option>
-                </select>
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Tipo</th>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th>Responsável</th>
-                        <th>Observação</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaMovimentos"></tbody>
-            </table>
+    <div class="historico-filtros">
+        <div class="buscar-box">
+            <span class="icone-busca">⌕</span>
+            <input type="text" id="buscarProduto" placeholder="Buscar Produto...">
         </div>
+
+        <select id="filtroTipo">
+            <option value="">Todos os tipos</option>
+            <option value="Entrada">Entrada</option>
+            <option value="Saída">Saída</option>
+        </select>
+
+        <select id="filtroData">
+            <option value="">Data</option>
+            <option value="Hoje">Hoje</option>
+            <option value="Semana">Semana</option>
+            <option value="Mês">Mês</option>
+        </select>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Responsável</th>
+                <th>Observação</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabelaMovimentos"></tbody>
+    </table>
+</div>
 
     </div>
 

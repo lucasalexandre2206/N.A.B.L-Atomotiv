@@ -2,35 +2,105 @@ let entradas = 0;
 let saidas = 0;
 let estoque = 0;
 
+let movimentacoes = [];
+
 function atualizarPainel() {
     document.getElementById("totalEntradas").innerText = entradas;
     document.getElementById("totalSaidas").innerText = saidas;
     document.getElementById("totalEstoque").innerText = estoque;
 }
 
+// 🔥 ADICIONA REGISTRO NA LISTA
 function adicionarNoHistorico(tipo, produto, quantidade, responsavel, observacao) {
-    let tabela = document.getElementById("tabelaMovimentos");
-
     let agora = new Date();
-    let data = agora.toLocaleDateString("pt-BR");
 
-    let classeTipo = tipo === "Entrada" ? "entrada" : "saida";
-    let quantidadeTexto = tipo === "Entrada" ? `+${quantidade}` : `-${quantidade}`;
+    let dataISO = agora.toISOString().split("T")[0]; // formato para filtro
+    let dataBR = agora.toLocaleDateString("pt-BR");
 
-    let novaLinha = `
-        <tr>
-            <td>${data}</td>
-            <td class="${classeTipo}">${tipo}</td>
-            <td>${produto}</td>
-            <td class="${classeTipo}">${quantidadeTexto}</td>
-            <td>${responsavel}</td>
-            <td>${observacao}</td>
-        </tr>
-    `;
+    movimentacoes.unshift({
+        tipo,
+        produto,
+        quantidade,
+        responsavel,
+        observacao,
+        dataISO,
+        dataBR
+    });
 
-    tabela.innerHTML = novaLinha + tabela.innerHTML;
+    aplicarFiltros();
 }
 
+// 🔥 DESENHA A TABELA
+function renderizarTabela(lista) {
+    let tabela = document.getElementById("tabelaMovimentos");
+    tabela.innerHTML = "";
+
+    lista.forEach((mov) => {
+        let classe = mov.tipo === "Entrada" ? "entrada" : "saida";
+        let qtd = mov.tipo === "Entrada" ? `+${mov.quantidade}` : `-${mov.quantidade}`;
+
+        tabela.innerHTML += `
+            <tr>
+                <td>${mov.dataBR}</td>
+                <td class="${classe}">${mov.tipo}</td>
+                <td>${mov.produto}</td>
+                <td class="${classe}">${qtd}</td>
+                <td>${mov.responsavel}</td>
+                <td>${mov.observacao}</td>
+            </tr>
+        `;
+    });
+}
+
+// 🔥 FILTROS (A PARTE PRINCIPAL)
+function aplicarFiltros() {
+    let busca = document.getElementById("buscarProduto").value.toLowerCase();
+    let tipo = document.getElementById("filtroTipo").value;
+    let dataFiltro = document.getElementById("filtroData").value;
+
+    let hoje = new Date();
+    let hojeISO = hoje.toISOString().split("T")[0];
+
+    let filtrados = movimentacoes.filter((mov) => {
+
+        // 🔎 BUSCA POR PRODUTO
+        let matchBusca = mov.produto.toLowerCase().includes(busca);
+
+        // 🔄 FILTRO POR TIPO
+        let matchTipo = tipo === "" || mov.tipo === tipo;
+
+        // 📅 FILTRO POR DATA
+        let matchData = true;
+
+        if (dataFiltro === "Hoje") {
+            matchData = mov.dataISO === hojeISO;
+        }
+
+        if (dataFiltro === "Semana") {
+            let seteDias = new Date();
+            seteDias.setDate(hoje.getDate() - 7);
+
+            matchData = new Date(mov.dataISO) >= seteDias;
+        }
+
+        if (dataFiltro === "Mês") {
+            let mesAtual = hoje.getMonth();
+            let anoAtual = hoje.getFullYear();
+
+            let dataMov = new Date(mov.dataISO);
+
+            matchData =
+                dataMov.getMonth() === mesAtual &&
+                dataMov.getFullYear() === anoAtual;
+        }
+
+        return matchBusca && matchTipo && matchData;
+    });
+
+    renderizarTabela(filtrados);
+}
+
+// 🔘 BOTÃO REGISTRAR
 function registrar() {
     let tipo = document.getElementById("tipo").value;
     let produto = document.getElementById("produto").value.trim();
@@ -39,17 +109,17 @@ function registrar() {
     let observacao = document.getElementById("observacao").value.trim();
 
     if (produto === "") {
-        alert("Digite o nome do produto");
+        alert("Digite o produto");
         return;
     }
 
     if (!quantidade || quantidade <= 0) {
-        alert("Digite uma quantidade válida");
+        alert("Quantidade inválida");
         return;
     }
 
     if (responsavel === "") {
-        alert("Digite o nome do responsável");
+        alert("Digite o responsável");
         return;
     }
 
@@ -69,8 +139,16 @@ function registrar() {
     atualizarPainel();
     adicionarNoHistorico(tipo, produto, quantidade, responsavel, observacao || "-");
 
+    // limpa campos
     document.getElementById("produto").value = "";
     document.getElementById("quantidade").value = "";
     document.getElementById("responsavel").value = "";
     document.getElementById("observacao").value = "";
 }
+
+// 🎯 EVENTOS DOS FILTROS
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("buscarProduto").addEventListener("input", aplicarFiltros);
+    document.getElementById("filtroTipo").addEventListener("change", aplicarFiltros);
+    document.getElementById("filtroData").addEventListener("change", aplicarFiltros);
+});
