@@ -1,3 +1,4 @@
+
 function carregarSidebar() {
 
     let tipo = localStorage.getItem("tipoUsuario")
@@ -71,3 +72,7 @@ function carregarSidebar() {
 }
 
 carregarSidebar()
+
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("ativo")
+}

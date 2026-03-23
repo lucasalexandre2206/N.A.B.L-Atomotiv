@@ -10,13 +10,13 @@
 
 <body>
 
-    <div class="sidebar">
-        <ul id="menuSidebar"></ul>
+    <div class="sidebar" id="sidebar">
 
-        <div class="menu-icon">☰</div>
+
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
         <a class="item" href="/views/admin/dashboard.html">
-            <div class="icon1"><img src="/img/casa1.png" alt="" class="casa"></div>
+            <div class="icon"><img src="/img/casa1.png" alt="" class="casa"></div>
             <span>Dashboard</span>
         </a>
 
@@ -36,7 +36,7 @@
         </a>
 
         <a class="item" href="/views/admin/divergencias.html">
-            <div  ><img src="/img/x.png" alt="" class="x"></div>
+            <div class="icon"><img src="/img/x.png" class="x"></div>
             <span>Divergências</span>
         </a>
 
@@ -49,6 +49,14 @@
 
     </div>
 
+    
+
 </body>
+
+<script>
+        function toggleMenu() {
+            document.getElementById("sidebar").classList.toggle("ativo")
+        }
+    </script>
 
 </html>
