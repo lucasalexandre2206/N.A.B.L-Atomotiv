@@ -4,17 +4,18 @@ let estoque = 0;
 
 let movimentacoes = [];
 
+// 🔹 Atualiza os cards
 function atualizarPainel() {
     document.getElementById("totalEntradas").innerText = entradas;
     document.getElementById("totalSaidas").innerText = saidas;
     document.getElementById("totalEstoque").innerText = estoque;
 }
 
-// 🔥 ADICIONA REGISTRO NA LISTA
+// 🔹 Adiciona nova movimentação
 function adicionarNoHistorico(tipo, produto, quantidade, responsavel, observacao) {
     let agora = new Date();
 
-    let dataISO = agora.toISOString().split("T")[0]; // formato para filtro
+    let dataISO = agora.toISOString().split("T")[0];
     let dataBR = agora.toLocaleDateString("pt-BR");
 
     movimentacoes.unshift({
@@ -30,7 +31,7 @@ function adicionarNoHistorico(tipo, produto, quantidade, responsavel, observacao
     aplicarFiltros();
 }
 
-// 🔥 DESENHA A TABELA
+// 🔹 Renderiza tabela
 function renderizarTabela(lista) {
     let tabela = document.getElementById("tabelaMovimentos");
     tabela.innerHTML = "";
@@ -52,7 +53,7 @@ function renderizarTabela(lista) {
     });
 }
 
-// 🔥 FILTROS (A PARTE PRINCIPAL)
+// 🔥 FILTROS COMPLETOS
 function aplicarFiltros() {
     let busca = document.getElementById("buscarProduto").value.toLowerCase();
     let tipo = document.getElementById("filtroTipo").value;
@@ -63,17 +64,26 @@ function aplicarFiltros() {
 
     let filtrados = movimentacoes.filter((mov) => {
 
-        // 🔎 BUSCA POR PRODUTO
+        // 🔎 Busca por produto
         let matchBusca = mov.produto.toLowerCase().includes(busca);
 
-        // 🔄 FILTRO POR TIPO
+        // 🔄 Tipo
         let matchTipo = tipo === "" || mov.tipo === tipo;
 
-        // 📅 FILTRO POR DATA
+        // 📅 Data
         let matchData = true;
 
         if (dataFiltro === "Hoje") {
             matchData = mov.dataISO === hojeISO;
+        }
+
+        if (dataFiltro === "Ontem") {
+            let ontem = new Date();
+            ontem.setDate(hoje.getDate() - 1);
+
+            let ontemISO = ontem.toISOString().split("T")[0];
+
+            matchData = mov.dataISO === ontemISO;
         }
 
         if (dataFiltro === "Semana") {
@@ -100,7 +110,7 @@ function aplicarFiltros() {
     renderizarTabela(filtrados);
 }
 
-// 🔘 BOTÃO REGISTRAR
+// 🔘 Botão registrar
 function registrar() {
     let tipo = document.getElementById("tipo").value;
     let produto = document.getElementById("produto").value.trim();
@@ -146,7 +156,7 @@ function registrar() {
     document.getElementById("observacao").value = "";
 }
 
-// 🎯 EVENTOS DOS FILTROS
+// 🔥 Eventos dos filtros
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("buscarProduto").addEventListener("input", aplicarFiltros);
     document.getElementById("filtroTipo").addEventListener("change", aplicarFiltros);
