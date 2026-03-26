@@ -45,15 +45,54 @@
     </div>
     <h1 class="titulo2">Monitoramento de Estoque WIP.</h1>
 
-    <div class="container-grafico">
-
-        <canvas id="meuCanvas" width="400" height="300"></canvas>
+    <div class="grafico-container">
+        <canvas id="graficoBarras"></canvas>
+        <button class="btn-atualizar">Atualizar</button>
     </div>
+
+    <h1 class="titulo2">Relatório de Produção</h1>
+
+    <div class="filtros">
+        <input type="text" placeholder="Data">
+        <input type="text" placeholder="Máquina">
+        <button>Filtrar</button>
+        <button>Baixar Excel</button>
+    </div>
+
+    <h2 style="text-align:center; margin-top:20px;">Tabela com dados</h2>
+
+<div class="tabela-container">
+<table>
+    <thead>
+        <tr>
+            <th>Máquina</th>
+            <th>Data</th>
+            <th>Produto</th>
+            <th>Setor</th>
+            <th>Quantidade</th>
+            <th>Responsável</th>
+            <th>Divergências</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Maq 01</td>
+            <td>01/03</td>
+            <td>Peça A</td>
+            <td>Corte</td>
+            <td>100</td>
+            <td>João</td>
+            <td>2</td>
+        </tr>
+    </tbody>
+</table>
+</div>
 
 
 
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../../js/components/loadSidebar.js"></script>
 <script src="../../js/pages/dashboard.js"></script>
 

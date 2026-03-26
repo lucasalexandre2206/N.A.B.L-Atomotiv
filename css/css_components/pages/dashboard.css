@@ -10,14 +10,14 @@
 
 .titulo {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
     color: #114fa8;
 
 }
 
 .titulo2 {
     text-align: center;
-    margin-top: 35px;
+    margin-top: 25px;
     color: #114fa8;
 
 }
@@ -178,23 +178,78 @@
     height: 60px;
 }
 
-.container-grafico {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 300px;
-    padding: 80px;
-    margin-bottom: 35px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    width: 50%;
-   
+.grafico-container{
+    width: 85%;
+    margin: 30px auto;
+    margin-right: 30px;
+    background: #114fa8;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
 }
 
-canvas {
-    background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-     border: solid;
+#graficoBarras{
+    max-height: 300px;
+}
+
+.btn-atualizar{
+    margin-top: 15px;
+    background: #0b2f66;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.filtros{
+    width: 85%;
+    margin: 30px auto;
+    margin-right: 30px;
+    background: #114fa8;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.filtros input{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.filtros button{
+    background: #0b2f66;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.tabela-container{
+    width: 85%;
+    margin: 30px auto;
+    margin-right: 30px;
+    background: #114fa8;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th{
+    background: #0b2f66;
+    color: white;
+    padding: 10px;
+}
+
+td{
+    padding: 10px;
+    border: 1px solid #ccc;
 }
