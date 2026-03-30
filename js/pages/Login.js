@@ -1,61 +1,73 @@
-// Este alerta TEM que aparecer assim que você abrir o site
-alert("JS CONECTADO COM SUCESSO!");
+const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
-const botao = document.getElementById('botaoLogin');
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const TABELA_USUARIOS = "login";
 
-if (botao) {
-    botao.addEventListener('click', function() {
-        const u = document.getElementById('usuario').value;
-        const s = document.getElementById('senha').value;
+const botaoLogin = document.getElementById("botaoLogin");
+const campoUsuario = document.getElementById("usuario");
+const campoSenha = document.getElementById("senha");
 
-        if (u === "admin" && s === "admin123") {
-            alert("Acesso Admin!");
-            window.location.href = "dashboard.html";
-        } else {
-            alert("Usuário ou senha errados!");
-        }
-    });
-} else {
-    alert("ERRO: O botão 'botaoLogin' não existe no seu HTML!");
-}// Alerta de teste (remova após confirmar que funcionou)
-alert("JS CONECTADO COM SUCESSO!");
-
-// Seleção dos elementos do DOM
-const botaoLogin = document.getElementById('botaoLogin');
-const campoUsuario = document.getElementById('usuario');
-const campoSenha = document.getElementById('senha');
-
-// Função principal de autenticação
-function realizarLogin() {
+async function realizarLogin() {
     const usuarioDigitado = campoUsuario.value.trim();
-    const senhaDigitada = campoSenha.value;
+    const senhaDigitada = campoSenha.value.trim();
 
-    // 1. Validação de campos vazios
     if (usuarioDigitado === "" || senhaDigitada === "") {
         alert("Por favor, preencha todos os campos.");
-        return; // Para a execução aqui
+        return;
     }
 
-    // 2. Lógica de autenticação (Simulação)
-    // No mundo real, isso seria verificado em um banco de dados
-    if (usuarioDigitado === "admin" && senhaDigitada === "admin123") {
-        alert("Acesso Admin concedido! Redirecionando...");
-        window.location.href = "dashboard.html"; 
-    } else {
-        alert("Usuário ou senha incorretos!");
-        // Limpa a senha por segurança se errar
+    const { data, error } = await client
+        .from(TABELA_USUARIOS)
+        .select("*")
+        .or(`nome.eq.${usuarioDigitado},email.eq.${usuarioDigitado},matricula.eq.${usuarioDigitado}`);
+
+    if (error) {
+        console.error("Erro ao buscar usuário:", error);
+        alert("Erro ao buscar usuário: " + error.message);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        alert("Usuário não encontrado.");
         campoSenha.value = "";
+        return;
     }
+
+    const usuario = data[0];
+
+    if (usuario.status !== "ativo") {
+        alert("Usuário inativo.");
+        campoSenha.value = "";
+        return;
+    }
+
+    if (usuario.senha !== senhaDigitada) {
+        alert("Senha incorreta.");
+        campoSenha.value = "";
+        return;
+    }
+
+    localStorage.setItem("usuarioLogado", JSON.stringify({
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        matricula: usuario.matricula,
+        tipo_usuario: usuario.tipo_usuario,
+        status: usuario.status
+    }));
+
+    alert("Login realizado com sucesso!");
+
+    window.location.href = "dashboard.html";
 }
 
-// Evento de clique no botão
 if (botaoLogin) {
-    botaoLogin.addEventListener('click', realizarLogin);
+    botaoLogin.addEventListener("click", realizarLogin);
 }
 
-// Atalho: Permitir fazer login apertando "Enter" no teclado
-document.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
+document.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
         realizarLogin();
     }
 });

@@ -1,194 +1,187 @@
-let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
+const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const TABELA_USUARIOS = "login";
 
-function salvarUsuario(){
+let usuarios = [];
 
+document.addEventListener("DOMContentLoaded", async () => {
+    await carregarUsuarios();
+});
 
-let usuario = {
+async function carregarUsuarios() {
+    const { data, error } = await client
+        .from(TABELA_USUARIOS)
+        .select("*");
 
+    console.log("Dados dos usuários:", data);
+    console.log("Erro ao carregar usuários:", error);
 
-nome: document.getElementById("nome").value,
-matricula: document.getElementById("matricula").value,
-cargo: document.getElementById("cargo").value,
-setor: document.getElementById("setor").value,
-email: document.getElementById("email").value,
-senha: document.getElementById("senha").value,
-tipo: document.getElementById("tipo").value,
-status: "ativo"
+    if (error) {
+        console.error("Erro ao carregar usuários:", error);
+        alert("Erro ao carregar usuários: " + error.message);
+        return;
+    }
 
-
+    usuarios = data || [];
+    mostrarUsuarios();
 }
 
+async function salvarUsuario() {
+    const nome = document.getElementById("nome").value.trim();
+    const matricula = document.getElementById("matricula").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const tipo = document.getElementById("tipo").value;
 
-usuarios.push(usuario)
+    if (nome === "" || matricula === "" || email === "" || senha === "") {
+        alert("Preencha todos os campos.");
+        return;
+    }
 
+    const { error } = await client
+        .from(TABELA_USUARIOS)
+        .insert([
+            {
+                nome: nome,
+                matricula: matricula,
+                email: email,
+                senha: senha,
+                tipo_usuario: tipo,
+                status: "ativo"
+            }
+        ]);
 
-localStorage.setItem("usuarios", JSON.stringify(usuarios))
+    if (error) {
+        console.error("Erro ao salvar usuário:", error);
+        alert("Erro ao salvar usuário: " + error.message);
+        return;
+    }
 
+    document.getElementById("nome").value = "";
+    document.getElementById("matricula").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("senha").value = "";
+    document.getElementById("tipo").value = "admin";
 
-mostrarUsuarios()
-
-
+    await carregarUsuarios();
+    alert("Usuário cadastrado com sucesso.");
 }
 
-function pesquisarUsuario(){
+function mostrarUsuarios(lista = usuarios) {
+    const tabela = document.getElementById("tabelaUsuarios");
+    const contador = document.getElementById("contadorUsuarios");
+    const msg = document.getElementById("msgVazio");
 
-let pesquisa = document
-.getElementById("pesquisaUsuario")
-.value
-.toLowerCase()
+    tabela.innerHTML = "";
 
-let tabela = document.getElementById("tabelaUsuarios")
-let msg = document.getElementById("msgVazio")
+    contador.innerText = `Total de usuários: ${lista.length}`;
 
-tabela.innerHTML = ""
+    if (!lista || lista.length === 0) {
+        tabela.innerHTML = "";
+        msg.style.display = "block";
+        return;
+    }
 
-let encontrados = 0
+    msg.style.display = "none";
 
-usuarios.forEach((u,index)=>{
-
-let texto = (u.nome + u.matricula + u.cargo + u.setor + u.email).toLowerCase()
-
-if(texto.includes(pesquisa)){
-
-encontrados++
-
-tabela.innerHTML += `
-
-<tr>
-<td>${u.nome}</td>
-<td>${u.matricula}</td>
-<td>${u.cargo}</td>
-<td>${u.setor}</td>
-<td>${u.email}</td>
-<td>${u.tipo}</td>
-
-<td>
-<select onchange="mudarStatus(${index}, this.value)">
-<option value="ativo" ${u.status=="ativo"?"selected":""}>Ativo</option>
-<option value="inativo" ${u.status=="inativo"?"selected":""}>Inativo</option>
-</select>
-</td>
-
-<td>
-<button class="btn-excluir" onclick="excluirUsuario(${index})">
-Excluir
-</button>
-</td>
-
-</tr>
-
-`
-
+    lista.forEach((u) => {
+        tabela.innerHTML += `
+            <tr>
+                <td>${u.nome ?? "-"}</td>
+                <td>${u.matricula ?? "-"}</td>
+                <td>${u.email ?? "-"}</td>
+                <td>${u.tipo_usuario ?? "-"}</td>
+                <td>
+                    <select onchange="mudarStatus(${u.id}, this.value)">
+                        <option value="ativo" ${u.status === "ativo" ? "selected" : ""}>Ativo</option>
+                        <option value="inativo" ${u.status === "inativo" ? "selected" : ""}>Inativo</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn-excluir" onclick="excluirUsuario(${u.id})">
+                        Excluir
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
 }
 
-})
+function pesquisarUsuario() {
+    const pesquisa = document
+        .getElementById("pesquisaUsuario")
+        .value
+        .toLowerCase()
+        .trim();
 
-// 🔥 controle de mensagem
-if(encontrados === 0){
-msg.style.display = "block"
-}else{
-msg.style.display = "none"
+    if (pesquisa === "") {
+        mostrarUsuarios();
+        document.getElementById("msgVazio").style.display = "none";
+        return;
+    }
+
+    const encontrados = usuarios.filter((u) => {
+        const texto = (
+            (u.nome || "") +
+            (u.matricula || "") +
+            (u.email || "") +
+            (u.tipo_usuario || "") +
+            (u.status || "")
+        ).toLowerCase();
+
+        return texto.includes(pesquisa);
+    });
+
+    mostrarUsuarios(encontrados);
 }
 
-// 🔥 se campo vazio → mostra tudo
-if(pesquisa === ""){
-mostrarUsuarios()
-msg.style.display = "none"
+function limparBusca() {
+    document.getElementById("pesquisaUsuario").value = "";
+    document.getElementById("msgVazio").style.display = "none";
+    mostrarUsuarios();
 }
 
+async function mudarStatus(id, novoStatus) {
+    const { error } = await client
+        .from(TABELA_USUARIOS)
+        .update({ status: novoStatus })
+        .eq("id", id);
+
+    if (error) {
+        console.error("Erro ao atualizar status:", error);
+        alert("Erro ao atualizar status: " + error.message);
+        return;
+    }
+
+    await carregarUsuarios();
 }
 
-function limparBusca(){
+async function excluirUsuario(id) {
+    const confirmar = confirm("Deseja realmente excluir este usuário?");
 
-document.getElementById("pesquisaUsuario").value = ""
+    if (!confirmar) {
+        return;
+    }
 
-mostrarUsuarios()
+    const { error } = await client
+        .from(TABELA_USUARIOS)
+        .delete()
+        .eq("id", id);
 
-document.getElementById("msgVazio").style.display = "none"
+    if (error) {
+        console.error("Erro ao excluir usuário:", error);
+        alert("Erro ao excluir usuário: " + error.message);
+        return;
+    }
 
+    await carregarUsuarios();
+    alert("Usuário excluído com sucesso.");
 }
 
-
-function mostrarUsuarios(){
-
-
-let tabela = document.getElementById("tabelaUsuarios")
-
-
-tabela.innerHTML = ""
-
-
-usuarios.forEach((u,index)=>{
-
-
-tabela.innerHTML += `
-
-
-<tr>
-<td>${u.nome}</td>
-<td>${u.matricula}</td>
-<td>${u.cargo}</td>
-<td>${u.setor}</td>
-<td>${u.email}</td>
-<td>${u.tipo}</td>
-
-
-<td>
-<select onchange="mudarStatus(${index}, this.value)">
-<option value="ativo" ${u.status=="ativo"?"selected":""}>Ativo</option>
-<option value="inativo" ${u.status=="inativo"?"selected":""}>Inativo</option>
-</select>
-</td>
-
-
-<td>
-<button class="btn-excluir" onclick="excluirUsuario(${index})">
-Excluir
-</button>
-</td>
-
-
-</tr>
-
-
-`
-
-
-})
-
-
-}
-
-
-function mudarStatus(index,novoStatus){
-
-
-usuarios[index].status = novoStatus
-
-
-localStorage.setItem("usuarios", JSON.stringify(usuarios))
-
-
-mostrarUsuarios()
-
-
-}
-
-
-function excluirUsuario(index){
-
-
-usuarios.splice(index,1)
-
-
-localStorage.setItem("usuarios", JSON.stringify(usuarios))
-
-
-mostrarUsuarios()
-
-
-}
-
-
-mostrarUsuarios()
+window.salvarUsuario = salvarUsuario;
+window.pesquisarUsuario = pesquisarUsuario;
+window.limparBusca = limparBusca;
+window.mudarStatus = mudarStatus;
+window.excluirUsuario = excluirUsuario;

@@ -1,110 +1,138 @@
-let maquinas = JSON.parse(localStorage.getItem("maquinas")) || []
+const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const TABELA_MAQUINAS = "maquinas";
 
-function salvarMaquina(){
+let maquinas = [];
 
+document.addEventListener("DOMContentLoaded", async () => {
+    await carregarMaquinas();
+});
 
-let maquina = {
+async function carregarMaquinas() {
+    const { data, error } = await client
+        .from(TABELA_MAQUINAS)
+        .select("*");
 
+    console.log("Dados das máquinas:", data);
+    console.log("Erro ao carregar máquinas:", error);
 
-nome: document.getElementById("nomeMaquina").value,
-codigo: document.getElementById("codigoMaquina").value,
-setor: document.getElementById("setorMaquina").value,
-status: document.getElementById("statusMaquina").value
+    if (error) {
+        console.error("Erro ao carregar máquinas:", error);
+        alert("Erro ao carregar máquinas: " + error.message);
+        return;
+    }
 
-
+    maquinas = data || [];
+    mostrarMaquinas();
 }
 
+async function salvarMaquina() {
+    const nome = document.getElementById("nomeMaquina").value.trim();
+    const codigo = document.getElementById("codigoMaquina").value.trim();
+    const status = document.getElementById("statusMaquina").value;
 
-maquinas.push(maquina)
+    if (nome === "" || codigo === "") {
+        alert("Preencha nome e código.");
+        return;
+    }
 
+    const { error } = await client
+        .from(TABELA_MAQUINAS)
+        .insert([
+            {
+                nome: nome,
+                codigo: codigo,
+                status: status
+            }
+        ]);
 
-localStorage.setItem("maquinas", JSON.stringify(maquinas))
+    if (error) {
+        console.error("Erro ao salvar máquina:", error);
+        alert("Erro ao salvar máquina no banco: " + error.message);
+        return;
+    }
 
+    document.getElementById("nomeMaquina").value = "";
+    document.getElementById("codigoMaquina").value = "";
+    document.getElementById("statusMaquina").value = "ativo";
 
-mostrarMaquinas()
-
-
+    await carregarMaquinas();
+    alert("Máquina cadastrada com sucesso.");
 }
 
+async function mudarStatus(id, novoStatus) {
+    const { error } = await client
+        .from(TABELA_MAQUINAS)
+        .update({ status: novoStatus })
+        .eq("id", id);
 
-function mostrarMaquinas(){
+    if (error) {
+        console.error("Erro ao atualizar status:", error);
+        alert("Erro ao atualizar status da máquina: " + error.message);
+        return;
+    }
 
-
-let tabela = document.getElementById("tabelaMaquinas")
-
-
-tabela.innerHTML = ""
-
-
-maquinas.forEach((m,index)=>{
-
-
-tabela.innerHTML += `
-
-
-<tr>
-<td>${m.nome}</td>
-<td>${m.codigo}</td>
-<td>${m.setor}</td>
-
-
-<td>
-<select onchange="mudarStatus(${index}, this.value)">
-<option value="ativo" ${m.status=="ativo"?"selected":""}>Ativo</option>
-<option value="manutencao" ${m.status=="manutencao"?"selected":""}>Manutenção</option>
-</select>
-</td>
-
-
-<td>
-<button class="btn-excluir" onclick="excluirMaquina(${index})">
-Excluir
-</button>
-</td>
-
-
-</tr>
-
-
-`
-
-
-})
-
-
+    await carregarMaquinas();
 }
 
+async function excluirMaquina(id) {
+    const confirmar = confirm("Deseja realmente excluir esta máquina?");
 
-function mudarStatus(index,novoStatus){
+    if (!confirmar) {
+        return;
+    }
 
+    const { error } = await client
+        .from(TABELA_MAQUINAS)
+        .delete()
+        .eq("id", id);
 
-maquinas[index].status = novoStatus
+    if (error) {
+        console.error("Erro ao excluir máquina:", error);
+        alert("Erro ao excluir máquina: " + error.message);
+        return;
+    }
 
-
-localStorage.setItem("maquinas", JSON.stringify(maquinas))
-
-
-mostrarMaquinas()
-
-
+    await carregarMaquinas();
+    alert("Máquina excluída com sucesso.");
 }
 
+function mostrarMaquinas() {
+    const tabela = document.getElementById("tabelaMaquinas");
+    tabela.innerHTML = "";
 
-function excluirMaquina(index){
+    if (!maquinas || maquinas.length === 0) {
+        tabela.innerHTML = `
+            <tr>
+                <td colspan="4">Nenhuma máquina cadastrada.</td>
+            </tr>
+        `;
+        return;
+    }
 
-
-maquinas.splice(index,1)
-
-
-localStorage.setItem("maquinas", JSON.stringify(maquinas))
-
-
-mostrarMaquinas()
-
-
+    maquinas.forEach((m) => {
+        tabela.innerHTML += `
+            <tr>
+                <td>${m.nome ?? "-"}</td>
+                <td>${m.codigo ?? "-"}</td>
+                <td>
+                    <select onchange="mudarStatus(${m.id}, this.value)">
+                        <option value="ativo" ${m.status === "ativo" ? "selected" : ""}>Ativo</option>
+                        <option value="manutencao" ${m.status === "manutencao" ? "selected" : ""}>Manutenção</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn-excluir" onclick="excluirMaquina(${m.id})">
+                        Excluir
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
 }
 
-
-mostrarMaquinas()
-
+window.salvarMaquina = salvarMaquina;
+window.mudarStatus = mudarStatus;
+window.excluirMaquina = excluirMaquina;

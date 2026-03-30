@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
     <div class="container-principal">
         <div class="lado-logo">
             <img src="../img/fundo2.jpg" alt="SmartFactory Logo">
@@ -22,23 +21,21 @@
 
                     <h2 class="bem-vindo">Seja bem-vindo</h2>
 
-                    <input type="text" placeholder="Usuário" id="usuario">
+                    <input type="text" placeholder="Usuário ou Email" id="usuario">
                     <input type="password" placeholder="Senha" id="senha">
 
-
                     <div class="options">
-                        <label><input type="checkbox"> Lembra senha</label>
+                        <label><input type="checkbox"> Lembrar senha</label>
                         <label><input type="checkbox"> Esqueci a senha</label>
                     </div>
 
-                   <button id="botaoLogin">LOGIN</button>
+                    <button id="botaoLogin" type="button">LOGIN</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../js/pages/Login.js"></script>
-    <script src="../js/dashboard.js"></script>
 </body>
 </html>
-    
