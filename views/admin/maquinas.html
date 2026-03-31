@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Máquinas</title>
@@ -8,67 +7,48 @@
     <link rel="stylesheet" href="/css/css_components/sidebar.css">
 </head>
 
-
 <body>
-    <div id="sidebar-container"></div>
-
+   <div id="sidebar-container"></div>
 
     <div class="container">
-
-
         <h1>Cadastro de Máquinas</h1>
 
-
         <div class="form">
-
-
             <input type="text" id="nomeMaquina" placeholder="Nome da Máquina">
             <input type="text" id="codigoMaquina" placeholder="Código">
-            
 
+            <select id="produtoMaquina">
+                <option value="">Selecione um produto</option>
+            </select>
 
             <select id="statusMaquina">
                 <option value="ativo">Ativo</option>
                 <option value="manutencao">Manutenção</option>
             </select>
 
-
             <button onclick="salvarMaquina()">Salvar</button>
-
-
         </div>
-
 
         <h2>Máquinas cadastradas</h2>
 
-
         <table>
-
-
             <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Código</th>
+                    <th>Produto</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
             </thead>
 
-
             <tbody id="tabelaMaquinas"></tbody>
-
-
         </table>
-
-
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="/js/components/sidebar.js"></script>
-    <script src="../../js/components/loadSidebar.js"></script>
+<script src="../../js/components/loadSidebar.js"></script>
     <script src="../../js/pages/maquinas.js"></script>
-    
-
-
 </body>
-
 </html>
