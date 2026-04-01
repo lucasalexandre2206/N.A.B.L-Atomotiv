@@ -8,7 +8,7 @@
 </head>
 
 <body>
-   <div id="sidebar-container"></div>
+    <div id="sidebar-container"></div>
 
     <div class="container">
         <h1>Cadastro de Máquinas</h1>
@@ -26,7 +26,7 @@
                 <option value="manutencao">Manutenção</option>
             </select>
 
-            <button onclick="salvarMaquina()">Salvar</button>
+            <button type="button" onclick="salvarMaquina()">Salvar</button>
         </div>
 
         <h2>Máquinas cadastradas</h2>
@@ -47,8 +47,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="/js/components/sidebar.js"></script>
-<script src="../../js/components/loadSidebar.js"></script>
+    <script src="../../js/components/loadSidebar.js"></script>
     <script src="../../js/pages/maquinas.js"></script>
 </body>
 </html>

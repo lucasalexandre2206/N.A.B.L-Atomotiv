@@ -2,13 +2,46 @@ const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 const TABELA_MAQUINAS = "maquinas";
+const TABELA_PRODUTOS = "produtos";
 
 let maquinas = [];
+let produtos = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
+    console.log("Página de máquinas carregada");
+    await carregarProdutos();
     await carregarMaquinas();
 });
+
+async function carregarProdutos() {
+    console.log("Entrou em carregarProdutos");
+
+    const { data, error } = await client
+        .from(TABELA_PRODUTOS)
+        .select("*");
+
+    console.log("Produtos carregados:", data);
+    console.log("Erro ao carregar produtos:", error);
+
+    if (error) {
+        console.error("Erro ao carregar produtos:", error);
+        alert("Erro ao carregar produtos: " + error.message);
+        return;
+    }
+
+    produtos = data || [];
+
+    const selectProduto = document.getElementById("produtoMaquina");
+    selectProduto.innerHTML = `<option value="">Selecione um produto</option>`;
+
+    produtos.forEach((produto) => {
+        selectProduto.innerHTML += `
+            <option value="${produto.id}">${produto.nome}</option>
+        `;
+    });
+}
 
 async function carregarMaquinas() {
     const { data, error } = await client
@@ -31,10 +64,11 @@ async function carregarMaquinas() {
 async function salvarMaquina() {
     const nome = document.getElementById("nomeMaquina").value.trim();
     const codigo = document.getElementById("codigoMaquina").value.trim();
+    const produtoId = Number(document.getElementById("produtoMaquina").value);
     const status = document.getElementById("statusMaquina").value;
 
-    if (nome === "" || codigo === "") {
-        alert("Preencha nome e código.");
+    if (nome === "" || codigo === "" || !produtoId) {
+        alert("Preencha nome, código e produto.");
         return;
     }
 
@@ -44,18 +78,20 @@ async function salvarMaquina() {
             {
                 nome: nome,
                 codigo: codigo,
+                produto_id: produtoId,
                 status: status
             }
         ]);
 
     if (error) {
         console.error("Erro ao salvar máquina:", error);
-        alert("Erro ao salvar máquina no banco: " + error.message);
+        alert("Erro ao salvar máquina: " + error.message);
         return;
     }
 
     document.getElementById("nomeMaquina").value = "";
     document.getElementById("codigoMaquina").value = "";
+    document.getElementById("produtoMaquina").value = "";
     document.getElementById("statusMaquina").value = "ativo";
 
     await carregarMaquinas();
@@ -106,17 +142,20 @@ function mostrarMaquinas() {
     if (!maquinas || maquinas.length === 0) {
         tabela.innerHTML = `
             <tr>
-                <td colspan="4">Nenhuma máquina cadastrada.</td>
+                <td colspan="5">Nenhuma máquina cadastrada.</td>
             </tr>
         `;
         return;
     }
 
     maquinas.forEach((m) => {
+        const produto = produtos.find((p) => Number(p.id) === Number(m.produto_id));
+
         tabela.innerHTML += `
             <tr>
                 <td>${m.nome ?? "-"}</td>
                 <td>${m.codigo ?? "-"}</td>
+                <td>${produto ? produto.nome : "⚠ Sem produto"}</td>
                 <td>
                     <select onchange="mudarStatus(${m.id}, this.value)">
                         <option value="ativo" ${m.status === "ativo" ? "selected" : ""}>Ativo</option>
