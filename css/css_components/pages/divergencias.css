@@ -1,5 +1,5 @@
-*{
- 
+* {
+
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
@@ -23,8 +23,9 @@ body {
 
 
 .container {
-  display: flex;
-  padding: 40px;
+    margin-top: 80px;   /* 🔥 fica abaixo da navbar */
+    margin-left: 70px;  /* 🔥 respeita a sidebar */
+    padding: 20px;
 }
 
 
@@ -43,10 +44,10 @@ body {
 
 
 
-h1{
-text-align:center;
-color:#114fa8;
-margin-bottom:30px;
+h1 {
+  text-align: center;
+  color: #114fa8;
+  margin-bottom: 30px;
 }
 
 
@@ -56,7 +57,7 @@ margin-bottom:30px;
   display: flex;
   gap: 15px;
   margin: 40px 0;
- 
+
 }
 
 
@@ -82,20 +83,21 @@ margin-bottom:30px;
 
 
 .titulo {
-  padding-bottom:30px;
+  padding-bottom: 30px;
   text-align: center;
-  color:#114fa8;
+  color: #114fa8;
   font-size: 25px;
 
 
 
 
 }
+
 .titulo1 {
   padding-top: 30px;
   text-align: center;
   padding-bottom: 30px;
-  color:#114fa8;
+  color: #114fa8;
   font-size: 25px;
 }
 
@@ -105,8 +107,8 @@ margin-bottom:30px;
 .titulo2 {
   padding-top: 30px;
   text-align: center;
-  padding-bottom: 30px;  
-  color:#114fa8;
+  padding-bottom: 30px;
+  color: #114fa8;
   font-size: 25px;
 }
 
@@ -187,8 +189,8 @@ margin-bottom:30px;
 
 table {
   width: 100%;
-   border-radius: 12px;      
-  overflow: hidden;          
+  border-radius: 12px;
+  overflow: hidden;
   border-collapse: separate;
   border-spacing: 0;
   margin: 0 auto;
@@ -217,7 +219,7 @@ th {
 
 
 td {
-  padding: 10px;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  padding: 10px;
   text-align: center;
 }
 
@@ -242,8 +244,14 @@ td {
 
 
 
-.amarelo { background: gold; }
-.vermelho { background: red; }
-.verde { background: green; }
+.amarelo {
+  background: gold;
+}
 
+.vermelho {
+  background: red;
+}
 
+.verde {
+  background: green;
+}

@@ -8,7 +8,11 @@
         "wdth" 100;
 }
 
-
+.container {
+    margin-top: 80px;   /* 🔥 fica abaixo da navbar */
+    margin-left: 70px;  /* 🔥 respeita a sidebar */
+    padding: 20px;
+}
 
 
 .titulo {
@@ -22,20 +26,11 @@
 }
 
 
-
-
 .titulo2 {
     text-align: center;
     margin-top: 25px;
     color: #114fa8;
-
-
-
-
 }
-
-
-
 
 .card-geral {
     display: flex;
@@ -43,9 +38,6 @@
     justify-content: center;
     padding-left: 15vh;
 }
-
-
-
 
 .card {
     display: inline-block;
@@ -91,22 +83,7 @@
     text-align: center;
     /* centraliza dentro do card */
     width: 4vh;
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
 
 .card-geral p {
     font-size: 25px;
@@ -118,15 +95,8 @@
     text-align: left 5px;
     /* centraliza dentro do card */
     width: 4vh;
-
-
-
-
     padding: 20px 60px 0px 10px;
 }
-
-
-
 
 .titulo-card p {
     font-size: 20px;

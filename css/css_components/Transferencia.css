@@ -5,8 +5,9 @@ body {
 }
 
 .container {
-    margin-left: 100px;
-    padding: 40px;
+    margin-top: 80px;   /* 🔥 fica abaixo da navbar */
+    margin-left: 70px;  /* 🔥 respeita a sidebar */
+    padding: 20px;
 }
 
 h1 {

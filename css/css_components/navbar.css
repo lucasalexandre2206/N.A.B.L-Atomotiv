@@ -1,0 +1,18 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 70px;
+    width: calc(100% - 70px);
+    height: 80px;
+    background: rgba(2, 60, 141, 0.301);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    transition: 0.3s;
+}
+
+/* LOGO MENOR */
+.logo-navbar {
+    height: 190px; /* diminui aqui */
+}

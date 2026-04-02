@@ -13,80 +13,79 @@
 
 <body>
     <div id="sidebar-container"></div>
-    <h1 class="titulo">Dashboard</h1>
+    <div id="navbar-container"></div>
 
-    <div class="card-geral">
-        <div class="card">
-            <h1 class="titulo-card">Produção Hoje</h1>
-            <div class="card-info">
-                <p class="card-info-qtd">1200</p>
-                <p class="card-info-nome">Peças</p>
-                <img src="../../img/estoque.png" alt="" class="imagem-card1">
+    <div class="container">
+
+        <h1 class="titulo">Dashboard</h1>
+
+        <div class="card-geral">
+            <div class="card">
+                <h1 class="titulo-card">Produção Hoje</h1>
+                <div class="card-info">
+                    <p class="card-info-qtd">1200</p>
+                    <p class="card-info-nome">Peças</p>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <h1 class="titulo-card">Divergêcia</h1>
-            <div class="card-info">
-                <p class="card-info-qtd">5</p>
-                <p class="card-info-nome">Encontradas</p>
-                <img src="../../img/chat_3898928.png" alt="" class="imagem-card2">
+            <div class="card">
+                <h1 class="titulo-card">Divergêcia</h1>
+                <div class="card-info">
+                    <p class="card-info-qtd">5</p>
+                    <p class="card-info-nome">Encontradas</p>
+                </div>
             </div>
+            <div class="card">
+                <h1 class="titulo-card">Máquinas Ativas</h1>
+                <p>12</p>
+            </div>
+            <div class="card">
+                <h1 class="titulo-card">Operadores Ativos</h1>
+                <p>8</p>
+            </div>
+
         </div>
-        <div class="card">
-            <h1 class="titulo-card">Máquinas Ativas</h1>
-            <p>12</p>
-            <img src="../../img/engrenagem (1).png" alt="" class="imagem-card3">
-        </div>
-        <div class="card">
-            <h1 class="titulo-card">Operadores Ativos</h1>
-            <p>8</p>
-            <img src="../../img/avatar-de-perfil.png" alt="" class="imagem-card4">
+        <h1 class="titulo2">Monitoramento de Estoque WIP.</h1>
+
+        <div class="grafico-container">
+            <canvas id="graficoBarras"></canvas>
+            <button class="btn-atualizar">Atualizar</button>
         </div>
 
-    </div>
-    <h1 class="titulo2">Monitoramento de Estoque WIP.</h1>
+        <h1 class="titulo2">Relatório de Produção</h1>
 
-    <div class="grafico-container">
-        <canvas id="graficoBarras"></canvas>
-        <button class="btn-atualizar">Atualizar</button>
-    </div>
+        <div class="filtros">
+            <input type="text" placeholder="Data">
+            <input type="text" placeholder="Máquina">
+            <button>Filtrar</button>
+            <button>Baixar Excel</button>
+        </div>
 
-    <h1 class="titulo2">Relatório de Produção</h1>
+        <h2 style="text-align:center; margin-top:20px;">Tabela com dados</h2>
 
-    <div class="filtros">
-        <input type="text" placeholder="Data">
-        <input type="text" placeholder="Máquina">
-        <button>Filtrar</button>
-        <button>Baixar Excel</button>
-    </div>
-
-    <h2 style="text-align:center; margin-top:20px;">Tabela com dados</h2>
-
-    <div class="tabela-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Máquina</th>
-                    <th>Data</th>
-                    <th>Produto</th>
-                    <th>Setor</th>
-                    <th>Quantidade</th>
-                    <th>Responsável</th>
-                    <th>Divergências</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Maq 01</td>
-                    <td>01/03</td>
-                    <td>Peça A</td>
-                    <td>Corte</td>
-                    <td>100</td>
-                    <td>João</td>
-                    <td>2</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Máquina</th>
+                        <th>Data</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Responsável</th>
+                        <th>Divergências</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Maq 01</td>
+                        <td>01/03</td>
+                        <td>Peça A</td>
+                        <td>100</td>
+                        <td>João</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
@@ -96,6 +95,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/components/sidebar.js"></script>
 <script src="../../js/components/loadSidebar.js"></script>
+<script src="/js/components/loadNavbar.js"></script>
 <script src="../../js/pages/dashboard.js"></script>
 
 

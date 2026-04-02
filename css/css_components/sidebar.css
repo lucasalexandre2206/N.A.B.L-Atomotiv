@@ -1,7 +1,9 @@
 * {
     margin: 0;
+    
 }
 
+/* SIDEBAR */
 .sidebar {
     width: 70px;
     height: 100vh;
@@ -9,57 +11,50 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000; /* 🔥 fica na frente da navbar */
     display: flex;
     flex-direction: column;
-    align-items: center;
     font-family: Arial;
     transition: 0.3s;
 }
 
 .sidebar.ativo {
-    width: 220px;
-    /* aberta */
+    width: 250px;
 }
 
-.item span {
-    display: none;
-}
-
-.sidebar.ativo .item span {
-    display: block;
-}
-
-
-
-/* botão */
-.item {
-    width: 90%;
+/* MENU (ESSENCIAL) */
+.menu {
     display: flex;
-    gap: 5px;
     flex-direction: column;
-    /* icone em cima */
+    flex: 1;
+}
+
+/* ITENS */
+.item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     text-decoration: none;
-    padding: 15px 5px;
-    border-radius: 12px;
-    margin-bottom: 10px;
+    padding: 15px 0;
     transition: 0.3s;
     text-align: center;
+    box-sizing: border-box;
 }
 
+/* HOVER 100% */
 .item:hover {
     background: #0a3c84;
-
-
 }
 
+/* ITEM ATIVO */
 .item.active {
     background: #0a3c84;
 }
 
-/* ícone */
+/* ÍCONE */
 .icon {
     width: 40px;
     height: 40px;
@@ -75,37 +70,50 @@
     filter: brightness(0) invert(1);
 }
 
-/* texto */
+/* TEXTO */
 .item span {
-    font-size: 13px;
+    display: none;
+    font-size: 14px;
 }
 
-/* botão sair */
+/* SIDEBAR ABERTA */
+.sidebar.ativo .item {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+
+.sidebar.ativo .item span {
+    display: block;
+    margin-left: 10px;
+}
+
+/* BOTÃO MENU */
+.menu-icon {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* centraliza */
+    margin: 20px 0 30px 0;
+    cursor: pointer;
+}
+
+.menu-icon img {
+    width: 25px;
+    height: 25px;
+    filter: brightness(0) invert(1); /* deixa branco */
+}
+
+/* 🔥 LOGOUT NO FINAL (CORRETO AGORA) */
 .logout {
     margin-top: auto;
-    margin-bottom: 5px;
 }
 
-.menu-icon {
-    color: white;
-    font-size: 28px;
-    margin-bottom: 30px;
-    margin-top: 20px;
-}
-
-.logout {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    width: 100%;
-}
-
-body {
-    margin: 0;
-}
-
-.conteudo {
-    margin-left: 200px;
-    /* mesmo valor da sidebar */
+/* CONTEÚDO */
+.container {
+    margin-left: 70px;
     padding: 30px;
+}
+
+.sidebar.ativo ~ .container {
+    margin-left: 250px;
 }
