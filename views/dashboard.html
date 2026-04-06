@@ -23,41 +23,50 @@
             <div class="card">
                 <h1 class="titulo-card">Produção Hoje</h1>
                 <div class="card-info">
-                    <p class="card-info-qtd">1200</p>
+                    <p class="card-info-qtd" id="cardProducaoHoje">0</p>
                     <p class="card-info-nome">Peças</p>
                 </div>
             </div>
+
             <div class="card">
-                <h1 class="titulo-card">Divergêcia</h1>
+                <h1 class="titulo-card">Divergência</h1>
                 <div class="card-info">
-                    <p class="card-info-qtd">5</p>
+                    <p class="card-info-qtd" id="cardDivergencias">0</p>
                     <p class="card-info-nome">Encontradas</p>
                 </div>
             </div>
+
             <div class="card">
                 <h1 class="titulo-card">Máquinas Ativas</h1>
-                <p>12</p>
-            </div>
-            <div class="card">
-                <h1 class="titulo-card">Operadores Ativos</h1>
-                <p>8</p>
+                <div class="card-info">
+                    <p class="card-info-qtd" id="cardMaquinasAtivas">0</p>
+                    <p class="card-info-nome">Ativas</p>
+                </div>
             </div>
 
+            <div class="card">
+                <h1 class="titulo-card">Operadores Ativos</h1>
+                <div class="card-info">
+                    <p class="card-info-qtd" id="cardOperadoresAtivos">0</p>
+                    <p class="card-info-nome">Ativos</p>
+                </div>
+            </div>
         </div>
-        <h1 class="titulo2">Monitoramento de Estoque WIP.</h1>
+
+        <h1 class="titulo2">Monitoramento de Estoque WIP</h1>
 
         <div class="grafico-container">
             <canvas id="graficoBarras"></canvas>
-            <button class="btn-atualizar">Atualizar</button>
+            <button class="btn-atualizar" id="btnAtualizarGrafico">Atualizar</button>
         </div>
 
         <h1 class="titulo2">Relatório de Produção</h1>
 
         <div class="filtros">
-            <input type="text" placeholder="Data">
-            <input type="text" placeholder="Máquina">
-            <button>Filtrar</button>
-            <button>Baixar Excel</button>
+            <input type="date" id="filtroData">
+            <input type="text" id="filtroMaquina" placeholder="Máquina">
+            <button type="button" id="btnFiltrar">Filtrar</button>
+            <button type="button" id="btnLimpar">Limpar</button>
         </div>
 
         <h2 style="text-align:center; margin-top:20px;">Tabela com dados</h2>
@@ -66,37 +75,25 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Máquina</th>
                         <th>Data</th>
+                        <th>Tipo</th>
                         <th>Produto</th>
                         <th>Quantidade</th>
                         <th>Responsável</th>
-                        <th>Divergências</th>
+                        <th>Observação</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Maq 01</td>
-                        <td>01/03</td>
-                        <td>Peça A</td>
-                        <td>100</td>
-                        <td>João</td>
-                        <td>2</td>
-                    </tr>
-                </tbody>
+                <tbody id="tabelaDashboard"></tbody>
             </table>
         </div>
     </div>
 
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/js/components/sidebar.js"></script>
+    <script src="../../js/components/loadSidebar.js"></script>
+    <script src="/js/components/loadNavbar.js"></script>
+    <script src="../../js/pages/dashboard.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/js/components/sidebar.js"></script>
-<script src="../../js/components/loadSidebar.js"></script>
-<script src="/js/components/loadNavbar.js"></script>
-<script src="../../js/pages/dashboard.js"></script>
-
 
 </html>

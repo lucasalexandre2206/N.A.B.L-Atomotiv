@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Divergências</title>
@@ -48,7 +49,11 @@
             <div class="filtros">
                 <input type="date" id="filtroData">
                 <input type="text" id="filtroMaquina" placeholder="Máquina">
-                <input type="text" id="filtroStatus" placeholder="Status">
+                <select id="filtroStatus">
+                    <option value="">Todos</option>
+                    <option value="aberta">🔴 Aberta</option>
+                    <option value="resolvida">🟢 Resolvida</option>
+                </select>
                 <input type="text" id="filtroProduto" placeholder="Produto">
                 <button type="button" onclick="filtrar()">Filtrar</button>
                 <button type="button" onclick="limparFiltros()">Limpar</button>
@@ -63,7 +68,7 @@
                             <th>Máquina</th>
                             <th>Produto</th>
                             <th>Status</th>
-                            <th>Alerta</th>
+                            <th>Ações</th> <!-- NOVO -->
                         </tr>
                     </thead>
                     <tbody id="tabelaDados"></tbody>
@@ -78,4 +83,5 @@
     <script src="../../js/components/loadSidebar.js"></script>
     <script src="/js/components/loadNavbar.js"></script>
 </body>
+
 </html>

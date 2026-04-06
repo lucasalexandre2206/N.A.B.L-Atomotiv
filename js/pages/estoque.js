@@ -3,36 +3,33 @@ const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// nomes das tabelas do seu banco
 const TABELA_USUARIOS = "login";
 const TABELA_PRODUTOS = "produtos";
 const TABELA_MOVIMENTACOES = "movimentacoes";
+const TABELA_DIVERGENCIAS = "divergencias";
+const TABELA_MAQUINAS = "maquinas";
 
 let movimentacoes = [];
 let produtos = [];
 let usuarios = [];
+let maquinas = [];
 
-// -------------------------
-// INICIALIZAÇÃO
-// -------------------------
 document.addEventListener("DOMContentLoaded", async () => {
+    await carregarTudo();
+
     document.getElementById("buscarProduto").addEventListener("input", aplicarFiltros);
     document.getElementById("filtroTipo").addEventListener("change", aplicarFiltros);
     document.getElementById("filtroData").addEventListener("change", aplicarFiltros);
-
-    await carregarTudo();
 });
 
 async function carregarTudo() {
     await carregarProdutos();
     await carregarUsuarios();
+    await carregarMaquinas();
     await carregarMovimentacoes();
     atualizarPainel();
 }
 
-// -------------------------
-// CARREGAR PRODUTOS
-// -------------------------
 async function carregarProdutos() {
     const { data, error } = await client
         .from(TABELA_PRODUTOS)
@@ -41,7 +38,7 @@ async function carregarProdutos() {
 
     if (error) {
         console.error("Erro ao carregar produtos:", error);
-        alert("Erro ao carregar produtos no banco.");
+        alert("Erro ao carregar produtos: " + error.message);
         return;
     }
 
@@ -57,9 +54,6 @@ async function carregarProdutos() {
     });
 }
 
-// -------------------------
-// CARREGAR USUÁRIOS
-// -------------------------
 async function carregarUsuarios() {
     const { data, error } = await client
         .from(TABELA_USUARIOS)
@@ -68,16 +62,26 @@ async function carregarUsuarios() {
 
     if (error) {
         console.error("Erro ao carregar usuários:", error);
-        alert("Erro ao carregar usuários no banco.");
+        alert("Erro ao carregar usuários: " + error.message);
         return;
     }
 
     usuarios = data || [];
 }
 
-// -------------------------
-// CARREGAR MOVIMENTAÇÕES
-// -------------------------
+async function carregarMaquinas() {
+    const { data, error } = await client
+        .from(TABELA_MAQUINAS)
+        .select("*");
+
+    if (error) {
+        console.error("Erro ao carregar máquinas:", error);
+        return;
+    }
+
+    maquinas = data || [];
+}
+
 async function carregarMovimentacoes() {
     const { data, error } = await client
         .from(TABELA_MOVIMENTACOES)
@@ -86,7 +90,7 @@ async function carregarMovimentacoes() {
 
     if (error) {
         console.error("Erro ao carregar movimentações:", error);
-        alert("Erro ao carregar movimentações no banco.");
+        alert("Erro ao carregar movimentações: " + error.message);
         return;
     }
 
@@ -94,9 +98,6 @@ async function carregarMovimentacoes() {
     aplicarFiltros();
 }
 
-// -------------------------
-// ATUALIZAR CARDS
-// -------------------------
 function atualizarPainel() {
     const hojeISO = new Date().toISOString().split("T")[0];
 
@@ -123,9 +124,6 @@ function atualizarPainel() {
     document.getElementById("totalEstoque").innerText = estoqueAtual;
 }
 
-// -------------------------
-// REGISTRAR MOVIMENTAÇÃO
-// -------------------------
 async function registrar() {
     const tipoTela = document.getElementById("tipo").value;
     const produtoId = Number(document.getElementById("produto").value);
@@ -187,6 +185,7 @@ async function registrar() {
                 tipo_movimentacao: tipoBanco,
                 produto_id: produtoId,
                 quantidade: quantidade,
+                estoque_apos_movimentacao: novoEstoque,
                 responsavel_id: usuario.id,
                 observacao: observacao || "-",
                 data_movimentacao: dataHoje
@@ -195,7 +194,7 @@ async function registrar() {
 
     if (erroInsert) {
         console.error("Erro ao registrar movimentação:", erroInsert);
-        alert("Erro ao salvar movimentação no Supabase.");
+        alert("Erro ao salvar movimentação: " + erroInsert.message);
         return;
     }
 
@@ -217,14 +216,62 @@ async function registrar() {
     document.getElementById("tipo").value = "Entrada";
 
     await carregarTudo();
-    alert("Movimentação registrada com sucesso.");
+
+    if (tipoBanco === "saida") {
+        const zona = verificarZona(produto, novoEstoque);
+
+        if (zona === "critica") {
+            await registrarDivergencia(produtoId);
+            alert("Saída registrada com sucesso. Produto em zona crítica.");
+        } else if (zona === "media") {
+            alert("Saída registrada com sucesso. Produto em zona média.");
+        } else {
+            alert("Saída registrada com sucesso. Produto em zona normal.");
+        }
+    } else {
+        alert("Movimentação registrada com sucesso.");
+    }
 }
 
-window.registrar = registrar;
+function verificarZona(produto, novoEstoque) {
+    const estoqueMaximo = Number(produto.estoque_maximo || 0);
+    const nivelCritico = Number(produto.nivel_critico || 0);
+    const nivelMedio = estoqueMaximo / 2;
 
-// -------------------------
-// FILTROS
-// -------------------------
+    if (novoEstoque <= nivelCritico) {
+        return "critica";
+    }
+
+    if (novoEstoque <= nivelMedio) {
+        return "media";
+    }
+
+    return "normal";
+}
+
+async function registrarDivergencia(produtoId) {
+    const dataHoje = new Date().toISOString().split("T")[0];
+
+    const maquina = maquinas.find(
+        (m) => Number(m.produto_id) === Number(produtoId)
+    );
+
+    const { error } = await client
+        .from(TABELA_DIVERGENCIAS)
+        .insert([
+            {
+                data_divergencia: dataHoje,
+                maquina_id: maquina ? maquina.id : null,
+                produto_id: produtoId,
+                status: "aberta"
+            }
+        ]);
+
+    if (error) {
+        console.error("Erro ao registrar divergência:", error);
+    }
+}
+
 function aplicarFiltros() {
     const busca = document.getElementById("buscarProduto").value.toLowerCase().trim();
     const tipoFiltro = document.getElementById("filtroTipo").value;
@@ -281,9 +328,6 @@ function aplicarFiltros() {
     atualizarPainel();
 }
 
-// -------------------------
-// RENDERIZAR TABELA
-// -------------------------
 function renderizarTabela(lista) {
     const tabela = document.getElementById("tabelaMovimentos");
     tabela.innerHTML = "";
@@ -291,7 +335,7 @@ function renderizarTabela(lista) {
     if (lista.length === 0) {
         tabela.innerHTML = `
             <tr>
-                <td colspan="6">Nenhuma movimentação encontrada.</td>
+                <td colspan="7">Nenhuma movimentação encontrada.</td>
             </tr>
         `;
         return;
@@ -304,17 +348,21 @@ function renderizarTabela(lista) {
         const tipoNormalizado = normalizarTipo(mov.tipo_movimentacao);
         const classe = tipoNormalizado === "entrada" ? "entrada" : "saida";
         const tipoExibicao = tipoNormalizado === "entrada" ? "Entrada" : "Saída";
-        const quantidadeExibicao =
+
+        const transferencia =
             tipoNormalizado === "entrada"
                 ? `+${mov.quantidade}`
                 : `-${mov.quantidade}`;
+
+        const estoqueNaData = mov.estoque_apos_movimentacao ?? 0;
 
         tabela.innerHTML += `
             <tr>
                 <td>${formatarDataBR(mov.data_movimentacao)}</td>
                 <td class="${classe}">${tipoExibicao}</td>
                 <td>${produto ? produto.nome : "Produto não encontrado"}</td>
-                <td class="${classe}">${quantidadeExibicao}</td>
+                <td class="${classe}">${transferencia}</td>
+                <td><strong>${estoqueNaData}</strong></td>
                 <td>${usuario ? usuario.nome : "Usuário não encontrado"}</td>
                 <td>${mov.observacao || "-"}</td>
             </tr>
@@ -322,9 +370,6 @@ function renderizarTabela(lista) {
     });
 }
 
-// -------------------------
-// FUNÇÕES AUXILIARES
-// -------------------------
 function formatarDataBR(dataISO) {
     if (!dataISO) return "-";
     const partes = dataISO.split("-");
@@ -338,3 +383,5 @@ function normalizarTipo(tipo) {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 }
+
+window.registrar = registrar;

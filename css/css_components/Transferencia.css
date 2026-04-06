@@ -133,3 +133,11 @@ td {
     color: red;
     font-weight: bold;
 }
+table th,
+table td {
+  white-space: nowrap;
+}
+
+table {
+  width: 100%;
+}
