@@ -1,3 +1,4 @@
+verificarAcesso("dashboard");
 const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
@@ -261,4 +262,14 @@ function normalizarTexto(texto) {
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
+}
+function bloquearDashboardOperador() {
+    const cards = document.querySelector(".card-geral");
+    if (cards) cards.style.display = "none";
+
+    const tabela = document.querySelector(".tabela-container");
+    if (tabela) tabela.style.display = "none";
+
+    const filtros = document.querySelector(".filtros");
+    if (filtros) filtros.style.display = "none";
 }

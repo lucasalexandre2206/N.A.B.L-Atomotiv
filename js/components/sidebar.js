@@ -1,13 +1,12 @@
 function carregarSidebar() {
+    const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+    const tipo = String(usuarioLogado?.tipo_usuario || "").toLowerCase();
 
-    let tipo = localStorage.getItem("tipoUsuario")
+    console.log("TIPO:", tipo);
 
-    console.log("TIPO:", tipo) // 👈 ADICIONA ISSO
+    let menu = "";
 
-    let menu = ""
-
-    if ( true ) {
-
+    if (tipo === "admin") {
         menu = `
         <a class="item" href="/views/dashboard.html">
             <div class="icon"><img src="/img/casa1.png"></div>
@@ -38,10 +37,8 @@ function carregarSidebar() {
             <div class="icon">↩</div>
             <span>Sair</span>
         </a>
-        `
-
+        `;
     } else {
-
         menu = `
         <a class="item" href="/views/dashboard.html">
             <div class="icon"><img src="/img/casa1.png"></div>
@@ -62,23 +59,19 @@ function carregarSidebar() {
             <div class="icon">↩</div>
             <span>Sair</span>
         </a>
-        `
+        `;
     }
 
-    document.getElementById("menuSidebar").innerHTML = menu
+    document.getElementById("menuSidebar").innerHTML = menu;
 }
 
-
-// 🔥 BOTÃO ☰
-function ativarToggle(){
+function ativarToggle() {
     document.getElementById("menuToggle").addEventListener("click", () => {
-        document.getElementById("sidebarMenu").classList.toggle("ativo")
-    })
+        document.getElementById("sidebarMenu").classList.toggle("ativo");
+    });
 }
 
-
-// 🔥 LOGOUT CERTO
-function logout(){
-    localStorage.removeItem("tipoUsuario")
-    window.location.href = "/views/login.html"
+function logout() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "/views/login.html";
 }

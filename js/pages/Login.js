@@ -2,7 +2,6 @@ const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const TABELA_USUARIOS = "login";
 
 const botaoLogin = document.getElementById("botaoLogin");
 const campoUsuario = document.getElementById("usuario");
@@ -13,52 +12,47 @@ async function realizarLogin() {
     const senhaDigitada = campoSenha.value.trim();
 
     if (usuarioDigitado === "" || senhaDigitada === "") {
-        alert("Por favor, preencha todos os campos.");
+        alert("Preencha usuário e senha.");
         return;
     }
 
     const { data, error } = await client
-        .from(TABELA_USUARIOS)
-        .select("*")
-        .or(`nome.eq.${usuarioDigitado},email.eq.${usuarioDigitado},matricula.eq.${usuarioDigitado}`);
+        .from("login")
+        .select("*");
 
     if (error) {
-        console.error("Erro ao buscar usuário:", error);
-        alert("Erro ao buscar usuário: " + error.message);
+        console.error("Erro ao buscar usuários:", error);
+        alert("Erro ao conectar com o banco: " + error.message);
         return;
     }
 
-    if (!data || data.length === 0) {
+    const usuario = data.find((u) => {
+        const nome = String(u.nome || "").toLowerCase();
+        const email = String(u.email || "").toLowerCase();
+        const matricula = String(u.matricula || "").toLowerCase();
+        const digitado = usuarioDigitado.toLowerCase();
+
+        return nome === digitado || email === digitado || matricula === digitado;
+    });
+
+    if (!usuario) {
         alert("Usuário não encontrado.");
-        campoSenha.value = "";
         return;
     }
 
-    const usuario = data[0];
-
-    if (usuario.status !== "ativo") {
-        alert("Usuário inativo.");
-        campoSenha.value = "";
-        return;
-    }
-
-    if (usuario.senha !== senhaDigitada) {
+    if (String(usuario.senha || "") !== senhaDigitada) {
         alert("Senha incorreta.");
-        campoSenha.value = "";
         return;
     }
 
-    localStorage.setItem("usuarioLogado", JSON.stringify({
-        id: usuario.id,
-        nome: usuario.nome,
-        email: usuario.email,
-        matricula: usuario.matricula,
-        tipo_usuario: usuario.tipo_usuario,
-        status: usuario.status
-    }));
+    if (String(usuario.status || "").toLowerCase() !== "ativo") {
+        alert("Usuário inativo.");
+        return;
+    }
+
+    localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
 
     alert("Login realizado com sucesso!");
-
     window.location.href = "dashboard.html";
 }
 
