@@ -1,18 +1,18 @@
 * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 🔥 resolve o problema */
     font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 470;
-    font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
 }
+
 
 .container {
     margin-top: 80px;   /* 🔥 fica abaixo da navbar */
     margin-left: 70px;  /* 🔥 respeita a sidebar */
     padding: 20px;
 }
+
+
 
 
 .titulo {
@@ -23,7 +23,13 @@
 
 
 
+
+
+
+
 }
+
+
 
 
 .titulo2 {
@@ -32,23 +38,29 @@
     color: #114fa8;
 }
 
+
 .card-geral {
     display: flex;
     gap: 20px;
-    justify-content: center;
-    padding-left: 15vh;
+    justify-content: space-between; /* 🔥 ocupa toda largura */
+    flex-wrap: wrap;
+    margin-top: 40px;
 }
 
+
 .card {
-    display: inline-block;
+    flex: 1; /* 🔥 cresce automático */
+    min-width: 220px;
+    height: 120px;
     background-color: #004aad;
-    width: 40vh;
-    height: 15vh;
     border-radius: 20px;
-    margin-top: 10vh;
-    color: rgb(255, 255, 255);
-    font-size: 6px;
+    color: white;
+    padding: 15px;
 }
+
+
+
+
 
 
 
@@ -56,7 +68,7 @@
 .titulo-card {
     margin: 0;
     height: 30%;
-    padding: 0px 15px;
+    padding: 0px 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -66,37 +78,24 @@
 
 
 
+
+
+
+
 .numero-card {
     font: size 20px;
 }
 
 
-
-
-.card-geral p {
-    font-size: 20px;
-    /* aumenta só o número */
-    font-weight: bold;
-    /* deixa mais destacado */
-    color: #ffffff;
-    /* opcional: muda a cor */
-    text-align: center;
-    /* centraliza dentro do card */
-    width: 4vh;
-}
-
 .card-geral p {
     font-size: 25px;
-    /* aumenta só o número */
     font-weight: bold;
-    /* deixa mais destacado */
     color: #ffffff;
-    /* opcional: muda a cor */
-    text-align: left 5px;
-    /* centraliza dentro do card */
-    width: 4vh;
-    padding: 20px 60px 0px 10px;
+    text-align: left;
+    width: auto; /* 🔥 CORRIGIDO */
+    padding: 10px 0;
 }
+
 
 .titulo-card p {
     font-size: 20px;
@@ -107,9 +106,12 @@
     /* opcional: muda a cor */
     text-align: left;
     /* centraliza dentro do card */
-    width: 4vh;
-    height: 15vh;
+   
 }
+
+
+
+
 
 
 
@@ -129,6 +131,10 @@
 
 
 
+
+
+
+
 .card-info .card-info-qtd,
 .card-info .card-info-nome {
     margin: 0%;
@@ -138,6 +144,10 @@
     /* deixa mais destacado */
     color: #ffffff;
 }
+
+
+
+
 
 
 
@@ -154,6 +164,10 @@
 
 
 
+
+
+
+
 .card-info .card-info-nome {
     font-size: 15px;
     /* aumenta só o número */
@@ -166,72 +180,25 @@
 
 
 
-.imagem-card1 {
-    filter: brightness(0) invert(1);
-    margin-bottom: 30px;
-    margin-left: 45px;
-    width: 60x;
-    height: 60px;
-}
 
 
 
 
-.imagem-card2 {
-    filter: brightness(0) invert(1);
-    margin-bottom: 15px;
-    margin-left: 65px;
-    width: 60x;
-    height: 60px;
-}
 
 
 
 
-.imagem-card2 {
-    filter: brightness(0) invert(1);
-    margin-bottom: 15px;
-    margin-left: 65px;
-    width: 60x;
-    height: 60px;
-}
-
-
-
-
-.imagem-card3 {
-    filter: brightness(0) invert(1);
-    margin-bottom: 15px;
-    margin-left: 200px;
-    margin-top: -55px;
-    width: 60x;
-    height: 60px;
-}
-
-
-
-
-.imagem-card4 {
-    filter: brightness(0) invert(1);
-    margin-bottom: 15px;
-    margin-left: 200px;
-    margin-top: -55px;
-    width: 60x;
-    height: 60px;
-}
-
-
-
-
-.grafico-container{
-    width: 85%;
-    margin: 30px auto;
-    margin-right: 30px;
+.grafico-container {
+    width: 100%; /* 🔥 ocupa tudo */
+    margin: 30px 0;
     background: #114fa8;
     padding: 20px;
     border-radius: 15px;
-    text-align: center;
 }
+
+
+
+
 
 
 
@@ -243,23 +210,17 @@
 
 
 
-.btn-atualizar{
-    margin-top: 15px;
-    background: #0b2f66;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 20px;
-    cursor: pointer;
-}
 
 
 
 
-.filtros{
-    width: 85%;
-    margin: 30px auto;
-    margin-right: 30px;
+
+
+
+
+.filtros {
+    width: 100%; /* 🔥 ocupa tudo */
+    margin: 30px 0; /* 🔥 tira centralização quebrada */
     background: #114fa8;
     padding: 20px;
     border-radius: 15px;
@@ -269,11 +230,19 @@
 
 
 
+
+
+
+
 .filtros input{
     padding: 10px;
     border-radius: 10px;
     border: none;
 }
+
+
+
+
 
 
 
@@ -290,10 +259,13 @@
 
 
 
-.tabela-container{
-    width: 87%;
-    margin: 30px auto;
-    margin-right: 30px;
+
+
+
+
+.tabela-container {
+    width: 100%; /* 🔥 ocupa tudo */
+    margin: 30px 0;
     background: #ffffff;
     padding: 20px;
     border-radius: 20px;
@@ -303,14 +275,23 @@
 
 
 
-table{
-  border-radius: 12px;      
-  overflow: hidden;          
+
+
+
+
+table {
+  border-radius: 12px;
+  overflow: hidden;
   border-collapse: separate;
   border-spacing: 0;
-  margin: 0 auto;
+  margin: 0 auto;            
   width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
+
+
+
 
 
 
@@ -325,27 +306,11 @@ th{
 
 
 
+
+
+
+
 td{
     padding: 10px;
     border: none;
-}
-.card-info {
-    margin: 0;
-    width: 100%;
-    height: 65%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0px 15px;
-    gap: 10px;
-}
-
-.card-geral p {
-    width: auto;
-}
-
-#graficoBarras {
-    max-height: 300px;
-    width: 100% !important;
 }
