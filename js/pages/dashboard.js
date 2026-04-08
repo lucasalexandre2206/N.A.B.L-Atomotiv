@@ -273,3 +273,33 @@ function bloquearDashboardOperador() {
     const filtros = document.querySelector(".filtros");
     if (filtros) filtros.style.display = "none";
 }
+
+function exportarParaExcel() {
+    let tabela = document.querySelector("table").outerHTML;
+
+    let arquivo = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:x="urn:schemas-microsoft-com:office:excel"
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+            ${tabela}
+        </body>
+        </html>
+    `;
+
+    let blob = new Blob([arquivo], {
+        type: "application/vnd.ms-excel"
+    });
+
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "relatorio.xls";
+
+    link.click();
+}
+
+document.getElementById("btnExportar")
+    .addEventListener("click", exportarParaExcel);

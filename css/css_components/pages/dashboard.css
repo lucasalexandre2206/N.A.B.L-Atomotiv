@@ -7,7 +7,7 @@
 
 
 .container {
-    margin-top: 80px;   /* 🔥 fica abaixo da navbar */
+    margin-top: 60px;   /* 🔥 fica abaixo da navbar */
     margin-left: 70px;  /* 🔥 respeita a sidebar */
     padding: 20px;
 }
@@ -219,12 +219,17 @@
 
 
 .filtros {
-    width: 100%; /* 🔥 ocupa tudo */
-    margin: 30px 0; /* 🔥 tira centralização quebrada */
+    width: 100%;
+    margin: 30px 0;
     background: #114fa8;
     padding: 20px;
     border-radius: 15px;
-    text-align: center;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* 🔥 espaço entre tudo */
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -234,26 +239,24 @@
 
 
 
-.filtros input{
+.filtros input {
     padding: 10px;
     border-radius: 10px;
     border: none;
 }
 
-
-
-
-
-
-
-
-.filtros button{
+.filtros button {
     background: #0b2f66;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.filtros button:hover {
+    background: #08234d;
 }
 
 

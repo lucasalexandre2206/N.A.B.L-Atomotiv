@@ -1,8 +1,11 @@
 fetch("/components/navbar.html")
 .then(res => res.text())
 .then(data => {
-    document.getElementById("navbar-container").innerHTML = data
-})
+    document.getElementById("navbar-container").innerHTML = data;
+
+    carregarNomeUsuario(); // 🔥 CHAMA AQUI
+});
+
 function carregarNomeUsuario() {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
 
@@ -16,6 +19,3 @@ function carregarNomeUsuario() {
         elemento.innerText = `Olá, ${nome}`;
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
-    carregarNomeUsuario();
-});

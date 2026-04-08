@@ -50,7 +50,13 @@ async function realizarLogin() {
         return;
     }
 
-    localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+    const usuarioSalvo = {
+        nome: usuario.nome,
+        email: usuario.email,
+        tipo_usuario: usuario.tipo_usuario // 🔥 CORRETO
+    };
+
+    localStorage.setItem("usuarioLogado", JSON.stringify(usuarioSalvo));
 
     alert("Login realizado com sucesso!");
     window.location.href = "dashboard.html";
