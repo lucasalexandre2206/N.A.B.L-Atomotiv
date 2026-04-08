@@ -1,4 +1,5 @@
 verificarAcesso("maquinas");
+
 const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
@@ -35,13 +36,15 @@ async function carregarProdutos() {
     produtos = data || [];
 
     const selectProduto = document.getElementById("produtoMaquina");
-    selectProduto.innerHTML = `<option value="">Selecione um produto</option>`;
+    if (selectProduto) {
+        selectProduto.innerHTML = `<option value="">Selecione um produto</option>`;
 
-    produtos.forEach((produto) => {
-        selectProduto.innerHTML += `
-            <option value="${produto.id}">${produto.nome}</option>
-        `;
-    });
+        produtos.forEach((produto) => {
+            selectProduto.innerHTML += `
+                <option value="${produto.id}">${produto.nome}</option>
+            `;
+        });
+    }
 }
 
 async function carregarMaquinas() {
@@ -59,7 +62,7 @@ async function carregarMaquinas() {
     }
 
     maquinas = data || [];
-    mostrarMaquinas();
+    mostrarMaquinas(maquinas);
 }
 
 async function salvarMaquina() {
@@ -136,11 +139,11 @@ async function excluirMaquina(id) {
     alert("Máquina excluída com sucesso.");
 }
 
-function mostrarMaquinas() {
+function mostrarMaquinas(lista = maquinas) {
     const tabela = document.getElementById("tabelaMaquinas");
     tabela.innerHTML = "";
 
-    if (!maquinas || maquinas.length === 0) {
+    if (!lista || lista.length === 0) {
         tabela.innerHTML = `
             <tr>
                 <td colspan="5">Nenhuma máquina cadastrada.</td>
@@ -149,7 +152,7 @@ function mostrarMaquinas() {
         return;
     }
 
-    maquinas.forEach((m) => {
+    lista.forEach((m) => {
         const produto = produtos.find((p) => Number(p.id) === Number(m.produto_id));
 
         tabela.innerHTML += `
@@ -173,6 +176,50 @@ function mostrarMaquinas() {
     });
 }
 
+function pesquisarMaquina() {
+    const campoPesquisa = document.getElementById("pesquisaMaquina");
+
+    if (!campoPesquisa) {
+        return;
+    }
+
+    const pesquisa = campoPesquisa.value.toLowerCase().trim();
+
+    if (pesquisa === "") {
+        mostrarMaquinas(maquinas);
+        return;
+    }
+
+    const filtradas = maquinas.filter((m) => {
+        const produto = produtos.find((p) => Number(p.id) === Number(m.produto_id));
+
+        const textoPesquisa = `
+            ${m.nome || ""}
+            ${m.codigo || ""}
+            ${m.status || ""}
+            ${produto ? produto.nome : ""}
+        `
+            .toLowerCase()
+            .trim();
+
+        return textoPesquisa.includes(pesquisa);
+    });
+
+    mostrarMaquinas(filtradas);
+}
+
+function limparBuscaMaquina() {
+    const campoPesquisa = document.getElementById("pesquisaMaquina");
+
+    if (campoPesquisa) {
+        campoPesquisa.value = "";
+    }
+
+    mostrarMaquinas(maquinas);
+}
+
 window.salvarMaquina = salvarMaquina;
 window.mudarStatus = mudarStatus;
 window.excluirMaquina = excluirMaquina;
+window.pesquisarMaquina = pesquisarMaquina;
+window.limparBuscaMaquina = limparBuscaMaquina;
