@@ -2,13 +2,16 @@ verificarAcesso("dashboard");
 const SUPABASE_URL = "https://jduahknpujrqwekibrbm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_0vsAuckxkESYXHgKt17nYA_Z5pvsdNq";
 
+
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 
 const TABELA_MOVIMENTACOES = "movimentacoes";
 const TABELA_DIVERGENCIAS = "divergencias";
 const TABELA_MAQUINAS = "maquinas";
 const TABELA_USUARIOS = "login";
 const TABELA_PRODUTOS = "produtos";
+
 
 let movimentacoes = [];
 let divergencias = [];
@@ -17,13 +20,21 @@ let usuarios = [];
 let produtos = [];
 let grafico = null;
 
+
 document.addEventListener("DOMContentLoaded", async () => {
     await carregarTudo();
 
-    document.getElementById("btnAtualizarGrafico").addEventListener("click", atualizarGrafico);
-    document.getElementById("btnFiltrar").addEventListener("click", filtrarTabela);
-    document.getElementById("btnLimpar").addEventListener("click", limparFiltros);
+
+    const btnFiltrar = document.getElementById("btnFiltrar");
+    const btnLimpar = document.getElementById("btnLimpar");
+    const btnExportar = document.getElementById("btnExportar");
+
+
+    if (btnFiltrar) btnFiltrar.addEventListener("click", filtrarTabela);
+    if (btnLimpar) btnLimpar.addEventListener("click", limparFiltros);
+    if (btnExportar) btnExportar.addEventListener("click", exportarParaExcel);
 });
+
 
 async function carregarTudo() {
     await carregarProdutos();
@@ -32,10 +43,12 @@ async function carregarTudo() {
     await carregarDivergencias();
     await carregarMovimentacoes();
 
+
     atualizarCards();
     atualizarGrafico();
     renderizarTabela(movimentacoes);
 }
+
 
 async function carregarProdutos() {
     const { data, error } = await client
@@ -43,19 +56,23 @@ async function carregarProdutos() {
         .select("*")
         .order("nome", { ascending: true });
 
+
     if (error) {
         console.error("Erro ao carregar produtos:", error);
         alert("Erro ao carregar produtos: " + error.message);
         return;
     }
 
+
     produtos = data || [];
 }
+
 
 async function carregarMaquinas() {
     const { data, error } = await client
         .from(TABELA_MAQUINAS)
         .select("*");
+
 
     if (error) {
         console.error("Erro ao carregar máquinas:", error);
@@ -63,13 +80,16 @@ async function carregarMaquinas() {
         return;
     }
 
+
     maquinas = data || [];
 }
+
 
 async function carregarUsuarios() {
     const { data, error } = await client
         .from(TABELA_USUARIOS)
         .select("*");
+
 
     if (error) {
         console.error("Erro ao carregar usuários:", error);
@@ -77,13 +97,16 @@ async function carregarUsuarios() {
         return;
     }
 
+
     usuarios = data || [];
 }
+
 
 async function carregarDivergencias() {
     const { data, error } = await client
         .from(TABELA_DIVERGENCIAS)
         .select("*");
+
 
     if (error) {
         console.error("Erro ao carregar divergências:", error);
@@ -91,8 +114,10 @@ async function carregarDivergencias() {
         return;
     }
 
+
     divergencias = data || [];
 }
+
 
 async function carregarMovimentacoes() {
     const { data, error } = await client
@@ -101,17 +126,21 @@ async function carregarMovimentacoes() {
         .order("data_movimentacao", { ascending: false })
         .order("created_at", { ascending: false });
 
+
     if (error) {
         console.error("Erro ao carregar movimentações:", error);
         alert("Erro ao carregar movimentações: " + error.message);
         return;
     }
 
+
     movimentacoes = data || [];
 }
 
+
 function atualizarCards() {
     const hoje = new Date().toISOString().split("T")[0];
+
 
     const producaoHoje = movimentacoes
         .filter((m) =>
@@ -120,18 +149,22 @@ function atualizarCards() {
         )
         .reduce((total, m) => total + Number(m.quantidade || 0), 0);
 
+
     const divergenciasAbertas = divergencias.filter((d) =>
         normalizarTexto(d.status) === "aberta"
     ).length;
+
 
     const maquinasAtivas = maquinas.filter((m) =>
         normalizarTexto(m.status) === "ativo"
     ).length;
 
+
     const operadoresAtivos = usuarios.filter((u) =>
         normalizarTexto(u.status) === "ativo" &&
         normalizarTexto(u.tipo_usuario) === "operador"
     ).length;
+
 
     document.getElementById("cardProducaoHoje").innerText = producaoHoje;
     document.getElementById("cardDivergencias").innerText = divergenciasAbertas;
@@ -139,15 +172,19 @@ function atualizarCards() {
     document.getElementById("cardOperadoresAtivos").innerText = operadoresAtivos;
 }
 
+
 function atualizarGrafico() {
     const ctx = document.getElementById("graficoBarras");
+
 
     const labels = produtos.map((p) => p.nome);
     const valores = produtos.map((p) => Number(p.estoque_atual || 0));
 
+
     if (grafico) {
         grafico.destroy();
     }
+
 
     grafico = new Chart(ctx, {
         type: "bar",
@@ -186,9 +223,11 @@ function atualizarGrafico() {
     });
 }
 
+
 function renderizarTabela(lista) {
     const tabela = document.getElementById("tabelaDashboard");
     tabela.innerHTML = "";
+
 
     if (!lista || lista.length === 0) {
         tabela.innerHTML = `
@@ -199,11 +238,14 @@ function renderizarTabela(lista) {
         return;
     }
 
+
     lista.forEach((item) => {
         const produto = produtos.find((p) => Number(p.id) === Number(item.produto_id));
         const usuario = usuarios.find((u) => Number(u.id) === Number(item.responsavel_id));
 
+
         const tipo = formatarTipo(item.tipo_movimentacao);
+
 
         tabela.innerHTML += `
             <tr>
@@ -218,29 +260,47 @@ function renderizarTabela(lista) {
     });
 }
 
+
 function filtrarTabela() {
     const filtroData = document.getElementById("filtroData").value;
-    const filtroProduto = document.getElementById("filtroMaquina").value.toLowerCase().trim();
+    const filtroTexto = document.getElementById("filtroMaquina").value
+        .toLowerCase()
+        .trim();
+
 
     const filtrada = movimentacoes.filter((item) => {
-        const produto = produtos.find((p) => Number(p.id) === Number(item.produto_id));
+        // 🔥 corrigindo data (remove hora se tiver)
+        const dataItem = (item.data_movimentacao || "").split("T")[0];
+
+
+        const produto = produtos.find(
+            (p) => Number(p.id) === Number(item.produto_id)
+        );
+
+
         const nomeProduto = produto ? produto.nome.toLowerCase() : "";
 
-        const matchData = !filtroData || item.data_movimentacao === filtroData;
-        const matchProduto = !filtroProduto || nomeProduto.includes(filtroProduto);
 
-        return matchData && matchProduto;
+        // 🔥 validações
+        const matchData = !filtroData || dataItem === filtroData;
+        const matchTexto =
+            !filtroTexto ||
+            nomeProduto.includes(filtroTexto);
+
+
+        return matchData && matchTexto;
     });
+
 
     renderizarTabela(filtrada);
 }
-
 function limparFiltros() {
     document.getElementById("filtroData").value = "";
     document.getElementById("filtroMaquina").value = "";
+
+
     renderizarTabela(movimentacoes);
 }
-
 function formatarDataBR(dataISO) {
     if (!dataISO) return "-";
     const partes = dataISO.split("-");
@@ -248,14 +308,18 @@ function formatarDataBR(dataISO) {
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
 
+
 function formatarTipo(tipo) {
     const texto = normalizarTexto(tipo);
+
 
     if (texto === "entrada") return "Entrada";
     if (texto === "saida") return "Saída";
 
+
     return tipo || "-";
 }
+
 
 function normalizarTexto(texto) {
     return String(texto || "")
@@ -267,15 +331,19 @@ function bloquearDashboardOperador() {
     const cards = document.querySelector(".card-geral");
     if (cards) cards.style.display = "none";
 
+
     const tabela = document.querySelector(".tabela-container");
     if (tabela) tabela.style.display = "none";
+
 
     const filtros = document.querySelector(".filtros");
     if (filtros) filtros.style.display = "none";
 }
 
+
 function exportarParaExcel() {
     let tabela = document.querySelector("table").outerHTML;
+
 
     let arquivo = `
         <html xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -290,16 +358,20 @@ function exportarParaExcel() {
         </html>
     `;
 
+
     let blob = new Blob([arquivo], {
         type: "application/vnd.ms-excel"
     });
+
 
     let link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = "relatorio.xls";
 
+
     link.click();
 }
+
 
 document.getElementById("btnExportar")
     .addEventListener("click", exportarParaExcel);
