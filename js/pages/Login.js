@@ -53,7 +53,7 @@ async function realizarLogin() {
     const usuarioSalvo = {
         nome: usuario.nome,
         email: usuario.email,
-        tipo_usuario: usuario.tipo_usuario // 🔥 CORRETO
+        tipo_usuario: usuario.tipo_usuario 
     };
 
     localStorage.setItem("usuarioLogado", JSON.stringify(usuarioSalvo));
@@ -71,3 +71,24 @@ document.addEventListener("keypress", function (e) {
         realizarLogin();
     }
 });
+
+const esqueciSenha = document.getElementById("esqueciSenha");
+const loginBox = document.getElementById("loginBox");
+const recuperarBox = document.getElementById("recuperarBox");
+const btnVoltar = document.getElementById("btnVoltar");
+
+
+if (esqueciSenha) {
+    esqueciSenha.addEventListener("click", () => {
+        loginBox.style.display = "none";
+        recuperarBox.style.display = "block";
+    });
+}
+
+
+if (btnVoltar) {
+    btnVoltar.addEventListener("click", () => {
+        recuperarBox.style.display = "none";
+        loginBox.style.display = "block";
+    });
+}

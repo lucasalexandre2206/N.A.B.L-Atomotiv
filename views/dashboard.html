@@ -59,32 +59,35 @@
             <canvas id="graficoBarras"></canvas>
         </div>
 
-        <h1 class="titulo2">Relatório de Produção</h1>
+        <div class="area-restrita">
 
-        <div class="filtros">
-            <input type="date" id="filtroData">
-            <input type="text" id="filtroMaquina" placeholder="Máquina">
-            <button type="button" id="btnFiltrar">Filtrar</button>
-            <button type="button" id="btnLimpar">Limpar</button>
-            <button type="button" id="btnExportar">Exportar Excel</button>
-        </div>
+            <h1 class="titulo2">Relatório de Produção</h1>
 
-        <h2 class="titulo2">Tabela com dados</h2>
+            <div class="filtros">
+                <input type="date" id="filtroData">
+                <input type="text" id="filtroMaquina" placeholder="Máquina">
+                <button type="button" id="btnFiltrar">Filtrar</button>
+                <button type="button" id="btnLimpar">Limpar</button>
+                <button type="button" id="btnExportar">Exportar Excel</button>
+            </div>
 
-        <div class="tabela-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Tipo</th>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th>Responsável</th>
-                        <th>Observação</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaDashboard"></tbody>
-            </table>
+            <h2 class="titulo2">Tabela com dados</h2>
+
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Responsável</th>
+                            <th>Observação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaDashboard"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -95,8 +98,8 @@
     <script src="../../js/components/loadSidebar.js"></script>
     <script src="/js/components/loadNavbar.js"></script>
     <script src="../../js/pages/dashboard.js"></script>
-    
-    
+
+
 </body>
 
 </html>

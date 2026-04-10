@@ -3,6 +3,6 @@ fetch("/components/sidebar.html")
 .then(data => {
     document.getElementById("sidebar-container").innerHTML = data
 
-    carregarSidebar()   // cria menu
-    ativarToggle()      // ativa botão ☰
+    carregarSidebar()   
+    ativarToggle()     
 })

@@ -13,12 +13,11 @@ function verificarAcesso(pagina) {
 
     const tipo = String(usuario.tipo_usuario || "").toLowerCase();
 
-    // ADMIN: acesso total
+   
     if (tipo === "admin") {
         return true;
     }
 
-    // OPERADOR: acesso limitado
     if (tipo === "operador") {
         if (pagina === "usuarios" || pagina === "maquinas") {
             alert("Acesso negado.");
@@ -48,6 +47,25 @@ function bloquearDashboardOperador() {
 
     const filtros = document.querySelector(".filtros");
     if (filtros) filtros.style.display = "none";
+
+    
+    setTimeout(() => {
+
+        
+        if (filtros) {
+            const tituloRelatorio = filtros.previousElementSibling;
+            if (tituloRelatorio) tituloRelatorio.style.display = "none";
+        }
+
+        
+        if (tabela) {
+            const tituloTabela = tabela.previousElementSibling;
+            if (tituloTabela) tituloTabela.style.display = "none";
+        }
+
+        console.log("🔥 TÍTULOS ESCONDIDOS CORRETAMENTE");
+
+    }, 200);
 }
 
 function logout() {
@@ -72,3 +90,4 @@ function ajustarMenuPorPerfil() {
 document.addEventListener("DOMContentLoaded", () => {
     ajustarMenuPorPerfil();
 });
+

@@ -3,7 +3,7 @@ fetch("/components/navbar.html")
 .then(data => {
     document.getElementById("navbar-container").innerHTML = data;
 
-    carregarNomeUsuario(); // 🔥 CHAMA AQUI
+    carregarNomeUsuario(); 
 });
 
 function carregarNomeUsuario() {

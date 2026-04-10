@@ -104,7 +104,7 @@ body {
 .form-box input[type="text"],
 .form-box input[type="password"] {
     padding: 15px 25px;
-    border-radius: 50px;
+    border-radius: 10px;
     border: 1px solid #000000;
     outline: none;
     font-size: 16px;
@@ -135,7 +135,7 @@ button {
     color: white;
     border: none;
     padding: 15px;
-    border-radius: 50px;
+    border-radius: 10px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -146,6 +146,12 @@ button {
 button:hover {
     background: #083b82;
 }
+
+.options p:hover {
+    text-decoration: underline;
+}
+
+
 
 /* Responsividade para Celular */
 @media (max-width: 768px) {

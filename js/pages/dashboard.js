@@ -375,3 +375,27 @@ function exportarParaExcel() {
 
 document.getElementById("btnExportar")
     .addEventListener("click", exportarParaExcel);
+
+
+  window.addEventListener("load", () => {
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+    console.log("USUARIO:", usuario); // 🔥 DEBUG
+
+    if (!usuario) return;
+
+    const tipo = String(usuario.tipo_usuario || "").toLowerCase();
+
+    console.log("TIPO:", tipo); // 🔥 DEBUG
+
+    if (tipo === "operador") {
+        const area = document.querySelector(".area-restrita");
+
+        console.log("AREA:", area); // 🔥 DEBUG
+
+        if (area) {
+            area.style.display = "none";
+            console.log("🔥 AREA ESCONDIDA");
+        }
+    }
+});
