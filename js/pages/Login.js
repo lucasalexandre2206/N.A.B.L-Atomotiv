@@ -7,14 +7,58 @@ const botaoLogin = document.getElementById("botaoLogin");
 const campoUsuario = document.getElementById("usuario");
 const campoSenha = document.getElementById("senha");
 
+const esqueciSenha = document.getElementById("esqueciSenha");
+const loginBox = document.getElementById("loginBox");
+const recuperarBox = document.getElementById("recuperarBox");
+const btnVoltar = document.getElementById("btnVoltar");
+
+
+// 👁 Mostrar / esconder senha
+function toggleSenha() {
+    const senha = document.getElementById("senha");
+    senha.type = senha.type === "password" ? "text" : "password";
+}
+
+
+// 🔥 VALIDAÇÃO (estilo ENIAC)
+function validarCampos() {
+    let valido = true;
+
+    document.querySelectorAll(".input-group").forEach(grupo => {
+        const input = grupo.querySelector("input");
+
+        if (input.value.trim() === "") {
+            grupo.classList.add("erro");
+            valido = false;
+        } else {
+            grupo.classList.remove("erro");
+        }
+    });
+
+    return valido;
+}
+
+
+// 🔥 Remove erro ao digitar (fica profissional)
+document.querySelectorAll(".input-group input").forEach(input => {
+    input.addEventListener("input", () => {
+        const grupo = input.parentElement;
+
+        if (input.value.trim() !== "") {
+            grupo.classList.remove("erro");
+        }
+    });
+});
+
+
+// 🔐 LOGIN
 async function realizarLogin() {
+
+    // 🔥 valida antes de tudo
+    if (!validarCampos()) return;
+
     const usuarioDigitado = campoUsuario.value.trim();
     const senhaDigitada = campoSenha.value.trim();
-
-    if (usuarioDigitado === "" || senhaDigitada === "") {
-        alert("Preencha usuário e senha.");
-        return;
-    }
 
     const { data, error } = await client
         .from("login")
@@ -53,7 +97,7 @@ async function realizarLogin() {
     const usuarioSalvo = {
         nome: usuario.nome,
         email: usuario.email,
-        tipo_usuario: usuario.tipo_usuario 
+        tipo_usuario: usuario.tipo_usuario
     };
 
     localStorage.setItem("usuarioLogado", JSON.stringify(usuarioSalvo));
@@ -62,33 +106,38 @@ async function realizarLogin() {
     window.location.href = "dashboard.html";
 }
 
+
+// 🖱 Botão login
 if (botaoLogin) {
-    botaoLogin.addEventListener("click", realizarLogin);
-}
-
-document.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
+    botaoLogin.addEventListener("click", function (e) {
+        e.preventDefault(); // 🔥 evita bug
         realizarLogin();
-    }
-});
-
-const esqueciSenha = document.getElementById("esqueciSenha");
-const loginBox = document.getElementById("loginBox");
-const recuperarBox = document.getElementById("recuperarBox");
-const btnVoltar = document.getElementById("btnVoltar");
-
-
-if (esqueciSenha) {
-    esqueciSenha.addEventListener("click", () => {
-        loginBox.style.display = "none";
-        recuperarBox.style.display = "block";
     });
 }
 
 
+// ⌨️ ENTER (corrigido)
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault(); // 🔥 ESSENCIAL
+        realizarLogin();
+    }
+});
+
+
+// 🔄 Trocar tela (esqueci senha)
+if (esqueciSenha) {
+    esqueciSenha.addEventListener("click", () => {
+        loginBox.style.display = "none";
+        recuperarBox.style.display = "flex";
+    });
+}
+
+
+// 🔙 Voltar
 if (btnVoltar) {
     btnVoltar.addEventListener("click", () => {
         recuperarBox.style.display = "none";
-        loginBox.style.display = "block";
+        loginBox.style.display = "flex";
     });
 }

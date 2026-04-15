@@ -151,7 +151,117 @@ button:hover {
     text-decoration: underline;
 }
 
+/* Corrige a tela de recuperação */
+.recuperar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* espaço entre elementos */
+    text-align: center;
+}
 
+/* Logo do LOGIN */
+#loginBox img {
+    width: 300px;
+    margin: 0 auto;
+}
+
+/* Logo da RECUPERAÇÃO */
+#recuperarBox img {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+#recuperarBox h2 {
+    margin-bottom: 10px;
+}
+
+#recuperarBox p {
+    margin-bottom: 55px;
+}
+
+/* Texto da recuperação */
+.recuperar p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.mensagem-recuperacao {
+    background: #f1f5ff;
+    padding: 15px;
+    border-radius: 10px;
+    
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+/* INPUT */
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #999;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+}
+
+/* LABEL (fica dentro do input) */
+.input-group label {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: #777;
+    font-size: 14px;
+    pointer-events: none;
+    transition: 0.3s;
+    background: #fff;
+    padding: 0 5px;
+}
+
+/* ANIMAÇÃO (subir) */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    color: #114fa8;
+}
+
+/* BORDA AO CLICAR */
+.input-group input:focus {
+    border: 2px solid #114fa8;
+}
+
+/* ERRO */
+.input-group.erro input {
+    border: 2px solid red;
+}
+
+/* TEXTO DE ERRO */
+.erro {
+    display: none;
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* MOSTRAR ERRO */
+.input-group.erro .erro {
+    display: block;
+}
+
+.eye {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
 
 /* Responsividade para Celular */
 @media (max-width: 768px) {

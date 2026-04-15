@@ -21,26 +21,39 @@
 
                     <h2 class="bem-vindo">Seja bem-vindo</h2>
 
-                    <input type="text" placeholder="Usuário ou Email" id="usuario">
-                    <input type="password" placeholder="Senha" id="senha">
+                    <div class="input-group">
+                        <input type="text" id="usuario"  placeholder=" ">
+                        <label>Usuário</label>
+                        <span class="erro">O login é obrigatório</span>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="senha"  placeholder=" ">
+                        <label>Senha</label>
+                        <span class="eye" onclick="toggleSenha()"></span>
+                        <span class="erro">A senha é obrigatória</span>
+                    </div>
+
+
+
+                    <button id="botaoLogin" type="button">LOGIN</button>
 
                     <div class="options">
                         <p id="esqueciSenha" style="cursor:pointer; color:#114fa8;">
                             Esqueci a senha
                         </p>
                     </div>
-
-                    <button id="botaoLogin" type="button">LOGIN</button>
                 </div>
 
                 <!-- 🔥 NOVA TELA -->
-                <div class="form-box" id="recuperarBox" style="display:none; text-align:center;">
+                <div class="form-box recuperar" id="recuperarBox" style="display:none;">
                     <img src="../img/Logo.png" alt="logo do login">
 
                     <h2 class="bem-vindo">Recuperar acesso</h2>
 
-                    <p style="margin:20px 0;">
-                        ⚠️ Para recuperar sua senha,<br>
+                    <p class="mensagem-recuperacao">
+                        Para recuperar sua senha,
+                        <br>
                         entre em contato com o administrador do sistema.
                     </p>
 
