@@ -117,3 +117,58 @@
 .sidebar.ativo ~ .container {
     margin-left: 250px;
 }
+
+@media (max-width: 1024px) {
+
+    .sidebar {
+        width: 60px;
+    }
+
+    .sidebar.ativo {
+        width: 200px;
+    }
+
+    .container {
+        margin-left: 60px;
+    }
+
+    .sidebar.ativo ~ .container {
+        margin-left: 200px;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100dvh; /* 🔥 CORRETO pra mobile */
+        z-index: 1000;
+    }
+
+    .sidebar.ativo {
+        width: 180px; /* 🔥 aberta menor tbm */
+    }
+
+    .container {
+        margin-left: 55px;
+        padding: 15px;
+    }
+
+    .sidebar.ativo ~ .container {
+        margin-left: 180px;
+    }
+
+    /* 🔥 ícones menores */
+    .icon img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* 🔥 reduz espaçamento */
+    .item {
+        padding: 10px 0;
+    }
+}

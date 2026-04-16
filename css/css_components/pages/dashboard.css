@@ -12,25 +12,11 @@
     padding: 20px;
 }
 
-
-
-
 .titulo {
     text-align: center;
     margin-top: 20px;
     color: #114fa8;
-
-
-
-
-
-
-
-
 }
-
-
-
 
 .titulo2 {
     text-align: center;
@@ -47,7 +33,6 @@
     margin-top: 40px;
 }
 
-
 .card {
     flex: 1; /* 🔥 cresce automático */
     min-width: 220px;
@@ -57,13 +42,6 @@
     color: white;
     padding: 15px;
 }
-
-
-
-
-
-
-
 
 .titulo-card {
     margin: 0;
@@ -75,17 +53,9 @@
     justify-content: start;
 }
 
-
-
-
-
-
-
-
 .numero-card {
     font: size 20px;
 }
-
 
 .card-geral p {
     font-size: 25px;
@@ -110,12 +80,6 @@
 }
 
 
-
-
-
-
-
-
 .card-info {
     margin: 0;
     width: 100%;
@@ -129,12 +93,6 @@
 }
 
 
-
-
-
-
-
-
 .card-info .card-info-qtd,
 .card-info .card-info-nome {
     margin: 0%;
@@ -144,12 +102,6 @@
     /* deixa mais destacado */
     color: #ffffff;
 }
-
-
-
-
-
-
 
 
 .card-info .card-info-qtd {
@@ -162,12 +114,6 @@
 }
 
 
-
-
-
-
-
-
 .card-info .card-info-nome {
     font-size: 15px;
     /* aumenta só o número */
@@ -176,16 +122,6 @@
     justify-content: center;
     align-items: end;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 .grafico-container {
@@ -197,25 +133,9 @@
 }
 
 
-
-
-
-
-
-
 #graficoBarras{
     max-height: 300px;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 .filtros {
@@ -231,12 +151,6 @@
     justify-content: center;
     align-items: center;
 }
-
-
-
-
-
-
 
 
 .filtros input {
@@ -259,13 +173,6 @@
     background: #08234d;
 }
 
-
-
-
-
-
-
-
 .tabela-container {
     width: 100%; /* 🔥 ocupa tudo */
     margin: 30px 0;
@@ -274,13 +181,6 @@
     border-radius: 20px;
     text-align: center;
 }
-
-
-
-
-
-
-
 
 table {
   border-radius: 12px;
@@ -292,26 +192,12 @@ table {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-
-
-
-
-
-
-
 th{
     background: #114fa8;
     color: white;
     padding: 10px;
     border: none;
 }
-
-
-
-
-
-
-
 
 td{
     padding: 10px;

@@ -43,9 +43,6 @@ body {
 .lado-logo img {
     width: 100%;
     max-width: 100%;
-    height: auto;
-    margin-bottom: 150px;
-   
 }
 
 /* Lado Branco (Login) */
@@ -162,13 +159,13 @@ button:hover {
 
 /* Logo do LOGIN */
 #loginBox img {
-    width: 300px;
+    width: 350px;
     margin: 0 auto;
 }
 
 /* Logo da RECUPERAÇÃO */
 #recuperarBox img {
-    width: 300px;
+    width: 350px;
     margin: 0 auto;
     margin-bottom: 30px;
 }
@@ -192,7 +189,7 @@ button:hover {
     background: #f1f5ff;
     padding: 15px;
     border-radius: 10px;
-    
+    border: 2px solid #114fa8;
 }
 
 .input-group {
@@ -244,11 +241,15 @@ button:hover {
 }
 
 /* TEXTO DE ERRO */
-.erro {
+.mensagem-erro {
     display: none;
     color: red;
     font-size: 12px;
     margin-top: 5px;
+}
+
+.input-group.erro .mensagem-erro {
+    display: block;
 }
 
 /* MOSTRAR ERRO */
@@ -263,12 +264,51 @@ button:hover {
     cursor: pointer;
 }
 
-/* Responsividade para Celular */
+@media (max-width: 1145px) {
+
+    .lado-logo {
+        display: none; /* 🔥 já esconde também */
+    }
+
+    .lado-login {
+        flex: 1;
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
+
+    .lado-logo {
+        display: none; /* 🔥 some a imagem */
+    }
+
+    .lado-login {
+        flex: 1;
+        width: 100%;
+    }
+
     .container-principal {
         flex-direction: column;
     }
-    .lado-logo {
-        flex: 0.4; /* Logo menor no mobile */
+
+    .login-card {
+        max-width: 100%;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .login-card {
+        padding: 20px;
+    }
+
+    .form-box {
+        gap: 20px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 16px;
     }
 }

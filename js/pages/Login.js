@@ -117,10 +117,17 @@ if (botaoLogin) {
 
 
 // ⌨️ ENTER (corrigido)
-document.addEventListener("keydown", function (e) {
+campoUsuario.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
-        e.preventDefault(); // 🔥 ESSENCIAL
-        realizarLogin();
+        e.preventDefault();
+        campoSenha.focus(); // 🔥 vai pra senha
+    }
+});
+
+campoSenha.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        realizarLogin(); // 🔥 só aqui faz login
     }
 });
 
