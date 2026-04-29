@@ -11,7 +11,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000; /* 🔥 fica na frente da navbar */
+    z-index: 1000; 
     display: flex;
     flex-direction: column;
     font-family: Arial;
@@ -92,7 +92,7 @@
 .menu-icon {
     width: 100%;
     display: flex;
-    justify-content: center; /* centraliza */
+    justify-content: center; 
     margin: 20px 0 30px 0;
     cursor: pointer;
 }
@@ -100,10 +100,10 @@
 .menu-icon img {
     width: 25px;
     height: 25px;
-    filter: brightness(0) invert(1); /* deixa branco */
+    filter: brightness(0) invert(1); 
 }
 
-/* 🔥 LOGOUT NO FINAL (CORRETO AGORA) */
+/*  LOGOUT NO FINAL */
 .logout {
     margin-top: auto;
 }
@@ -141,26 +141,26 @@
 @media (max-width: 768px) {
 
     .sidebar {
-        width: 55px; /* 🔥 levemente menor */
+        width: 55px; 
         position: fixed;
         top: 0;
         left: 0;
-        bottom: 0; /* 🔥 ESSENCIAL (fixa no scroll) */
-        height: auto; /* 🔥 remove bug do vh */
+        bottom: 0; 
+        height: auto; 
         z-index: 1000;
     }
 
     .sidebar.ativo {
-        width: 180px; /* 🔥 proporcional */
+        width: 180px; 
     }
 
-    /* 🔥 ícones levemente menores (sem mudar layout) */
+    
     .icon img {
         width: 18px;
         height: 18px;
     }
 
-    /* 🔥 leve ajuste só pra caber melhor */
+    
     .item {
         padding: 10px 0;
     }

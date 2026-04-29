@@ -380,18 +380,18 @@ document.getElementById("btnExportar")
   window.addEventListener("load", () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-    console.log("USUARIO:", usuario); // 🔥 DEBUG
+    console.log("USUARIO:", usuario); 
 
     if (!usuario) return;
 
     const tipo = String(usuario.tipo_usuario || "").toLowerCase();
 
-    console.log("TIPO:", tipo); // 🔥 DEBUG
+    console.log("TIPO:", tipo); 
 
     if (tipo === "operador") {
         const area = document.querySelector(".area-restrita");
 
-        console.log("AREA:", area); // 🔥 DEBUG
+        console.log("AREA:", area); 
 
         if (area) {
             area.style.display = "none";

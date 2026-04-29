@@ -13,14 +13,14 @@ const recuperarBox = document.getElementById("recuperarBox");
 const btnVoltar = document.getElementById("btnVoltar");
 
 
-// 👁 Mostrar / esconder senha
+
 function toggleSenha() {
     const senha = document.getElementById("senha");
     senha.type = senha.type === "password" ? "text" : "password";
 }
 
 
-// 🔥 VALIDAÇÃO (estilo ENIAC)
+
 function validarCampos() {
     let valido = true;
 
@@ -39,7 +39,7 @@ function validarCampos() {
 }
 
 
-// 🔥 Remove erro ao digitar (fica profissional)
+
 document.querySelectorAll(".input-group input").forEach(input => {
     input.addEventListener("input", () => {
         const grupo = input.parentElement;
@@ -51,10 +51,10 @@ document.querySelectorAll(".input-group input").forEach(input => {
 });
 
 
-// 🔐 LOGIN
+
 async function realizarLogin() {
 
-    // 🔥 valida antes de tudo
+   
     if (!validarCampos()) return;
 
     const usuarioDigitado = campoUsuario.value.trim();
@@ -107,32 +107,32 @@ async function realizarLogin() {
 }
 
 
-// 🖱 Botão login
+
 if (botaoLogin) {
     botaoLogin.addEventListener("click", function (e) {
-        e.preventDefault(); // 🔥 evita bug
+        e.preventDefault(); 
         realizarLogin();
     });
 }
 
 
-// ⌨️ ENTER (corrigido)
+
 campoUsuario.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         e.preventDefault();
-        campoSenha.focus(); // 🔥 vai pra senha
+        campoSenha.focus(); 
     }
 });
 
 campoSenha.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         e.preventDefault();
-        realizarLogin(); // 🔥 só aqui faz login
+        realizarLogin(); 
     }
 });
 
 
-// 🔄 Trocar tela (esqueci senha)
+
 if (esqueciSenha) {
     esqueciSenha.addEventListener("click", () => {
         loginBox.style.display = "none";
@@ -141,7 +141,7 @@ if (esqueciSenha) {
 }
 
 
-// 🔙 Voltar
+
 if (btnVoltar) {
     btnVoltar.addEventListener("click", () => {
         recuperarBox.style.display = "none";

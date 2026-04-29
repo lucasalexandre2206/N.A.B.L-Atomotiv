@@ -1,14 +1,14 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* 🔥 resolve o problema */
+    box-sizing: border-box; 
     font-family: "Roboto", sans-serif;
 }
 
 
 .container {
-    margin-top: 60px;   /* 🔥 fica abaixo da navbar */
-    margin-left: 70px;  /* 🔥 respeita a sidebar */
+    margin-top: 60px;   
+    margin-left: 70px;  
     padding: 20px;
 }
 
@@ -28,13 +28,13 @@
 .card-geral {
     display: flex;
     gap: 20px;
-    justify-content: space-between; /* 🔥 ocupa toda largura */
+    justify-content: space-between; 
     flex-wrap: wrap;
     margin-top: 40px;
 }
 
 .card {
-    flex: 1; /* 🔥 cresce automático */
+    flex: 1;
     min-width: 220px;
     height: 120px;
     background-color: #004aad;
@@ -62,20 +62,20 @@
     font-weight: bold;
     color: #ffffff;
     text-align: left;
-    width: auto; /* 🔥 CORRIGIDO */
+    width: auto; 
     padding: 10px 0;
 }
 
 
 .titulo-card p {
     font-size: 20px;
-    /* aumenta só o número */
+ 
     font-weight: bold;
-    /* deixa mais destacado */
+   
     color: #ffffff;
-    /* opcional: muda a cor */
+   
     text-align: left;
-    /* centraliza dentro do card */
+   
    
 }
 
@@ -99,14 +99,12 @@
     padding: 0;
     width: auto;
     font-weight: bold;
-    /* deixa mais destacado */
     color: #ffffff;
 }
 
 
 .card-info .card-info-qtd {
     font-size: 35px;
-    /* aumenta só o número */
     height: auto;
     display: flex;
     justify-content: center;
@@ -116,7 +114,6 @@
 
 .card-info .card-info-nome {
     font-size: 15px;
-    /* aumenta só o número */
     height: 40%;
     display: flex;
     justify-content: center;
@@ -125,7 +122,7 @@
 
 
 .grafico-container {
-    width: 100%; /* 🔥 ocupa tudo */
+    width: 100%; 
     margin: 30px 0;
     background: #114fa8;
     padding: 20px;
@@ -147,7 +144,7 @@
 
     display: flex;
     flex-wrap: wrap;
-    gap: 30px; /* 🔥 espaço entre tudo */
+    gap: 30px; 
     justify-content: center;
     align-items: center;
 }
@@ -174,7 +171,7 @@
 }
 
 .tabela-container {
-    width: 100%; /* 🔥 ocupa tudo */
+    width: 100%;
     margin: 30px 0;
     background: #ffffff;
     padding: 20px;
@@ -210,7 +207,7 @@ td{
 @media (max-width: 768px) {
 
     .container {
-        margin-left: 55px; /* acompanha sidebar */
+        margin-left: 55px; 
         padding: 15px;
     }
 
@@ -218,21 +215,21 @@ td{
         margin-left: 180px;
     }
 
-    /* 🔥 impede quebrar layout lateral */
+    
     body {
         overflow-x: hidden;
     }
 
      #graficoBarras {
-        max-height: 550px; /* 🔥 antes 300 */
+        max-height: 550px;
     }
 
     .tabela-container {
-        overflow-x: auto; /* 🔥 resolve tabela grande */
+        overflow-x: auto; 
     }
 
     table {
-        min-width: 600px; /* mantém layout original */
+        min-width: 600px;
     }
 
 }

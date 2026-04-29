@@ -17,16 +17,15 @@
 /* LOGO MENOR */
 .logo-navbar {
     height: 190px;
-    /* diminui aqui */
+    
 }
 
 .usuario {
     color: #004aad;
     font-weight: bold;
     font-size: 22px;
-    /* aumenta aqui */
     margin-right: 40px;
-    /* afasta da borda direita */
+
 }
 
 @media (max-width: 1024px) {
@@ -54,7 +53,7 @@
 @media (max-width: 768px) {
 
     .navbar {
-        left: 50px; /* acompanha sidebar mobile */
+        left: 50px; 
         width: calc(100% - 50px);
         height: 60px;
         padding: 0 10px;
@@ -66,7 +65,7 @@
     }
 
     .logo-navbar {
-        height: 60px; /* 🔥 bem menor */
+        height: 60px; 
     }
 
     .usuario {

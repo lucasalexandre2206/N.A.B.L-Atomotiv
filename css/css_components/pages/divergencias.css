@@ -122,17 +122,17 @@ h1 {
 
 .filtros select {
   padding: 10px;
-  border-radius: 8px; /* 🔥 deixa igual aos inputs */
+  border-radius: 8px; 
   border: none;
   outline: none;
 }
 
 
 .tabela {
-  width: 100%;          /* 🔥 ocupa tudo igual os outros */
-  margin: 30px 0;       /* 🔥 mesmo espaçamento */
+  width: 100%;          
+  margin: 30px 0;      
   background: #ffffff;
-  padding: 20px;        /* 🔥 igual grafico/filtros */
+  padding: 20px;        
   border-radius: 15px;
 }
 
