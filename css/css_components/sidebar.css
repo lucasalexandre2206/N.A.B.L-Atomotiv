@@ -141,33 +141,26 @@
 @media (max-width: 768px) {
 
     .sidebar {
+        width: 55px; /* 🔥 levemente menor */
         position: fixed;
         top: 0;
         left: 0;
-        height: 100dvh; /* 🔥 CORRETO pra mobile */
+        bottom: 0; /* 🔥 ESSENCIAL (fixa no scroll) */
+        height: auto; /* 🔥 remove bug do vh */
         z-index: 1000;
     }
 
     .sidebar.ativo {
-        width: 180px; /* 🔥 aberta menor tbm */
+        width: 180px; /* 🔥 proporcional */
     }
 
-    .container {
-        margin-left: 55px;
-        padding: 15px;
-    }
-
-    .sidebar.ativo ~ .container {
-        margin-left: 180px;
-    }
-
-    /* 🔥 ícones menores */
+    /* 🔥 ícones levemente menores (sem mudar layout) */
     .icon img {
         width: 18px;
         height: 18px;
     }
 
-    /* 🔥 reduz espaçamento */
+    /* 🔥 leve ajuste só pra caber melhor */
     .item {
         padding: 10px 0;
     }

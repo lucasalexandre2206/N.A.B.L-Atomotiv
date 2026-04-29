@@ -8,18 +8,69 @@
     backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
-    justify-content: space-between; /* 🔥 separa logo e usuário */-left: 20px;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
     transition: 0.3s;
 }
 
 /* LOGO MENOR */
 .logo-navbar {
-    height: 190px; /* diminui aqui */
+    height: 190px;
+    /* diminui aqui */
 }
 
 .usuario {
     color: #004aad;
     font-weight: bold;
-    font-size: 22px; /* aumenta aqui */
-    margin-right: 40px; /* afasta da borda direita */
+    font-size: 22px;
+    /* aumenta aqui */
+    margin-right: 40px;
+    /* afasta da borda direita */
+}
+
+@media (max-width: 1024px) {
+
+    .navbar {
+        left: 60px;
+        width: calc(100% - 60px);
+        height: 70px;
+    }
+
+    .sidebar.ativo ~ .navbar {
+        left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .logo-navbar {
+        height: 90px;
+    }
+
+    .usuario {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .navbar {
+        left: 50px; /* acompanha sidebar mobile */
+        width: calc(100% - 50px);
+        height: 60px;
+        padding: 0 10px;
+    }
+
+    .sidebar.ativo ~ .navbar {
+        left: 160px;
+        width: calc(100% - 160px);
+    }
+
+    .logo-navbar {
+        height: 60px; /* 🔥 bem menor */
+    }
+
+    .usuario {
+        font-size: 14px;
+        margin-right: 10px;
+    }
 }

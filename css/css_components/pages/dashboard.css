@@ -203,3 +203,36 @@ td{
     padding: 10px;
     border: none;
 }
+
+
+
+
+@media (max-width: 768px) {
+
+    .container {
+        margin-left: 55px; /* acompanha sidebar */
+        padding: 15px;
+    }
+
+    .sidebar.ativo ~ .container {
+        margin-left: 180px;
+    }
+
+    /* 🔥 impede quebrar layout lateral */
+    body {
+        overflow-x: hidden;
+    }
+
+     #graficoBarras {
+        max-height: 550px; /* 🔥 antes 300 */
+    }
+
+    .tabela-container {
+        overflow-x: auto; /* 🔥 resolve tabela grande */
+    }
+
+    table {
+        min-width: 600px; /* mantém layout original */
+    }
+
+}

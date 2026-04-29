@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Usuários</title>
-    <link rel="stylesheet" href="../../css/css_components/usuario.css">
+    
     <link rel="stylesheet" href="/css/css_components/sidebar.css">
+    <link rel="stylesheet" href="../../css/css_components/usuario.css">
 </head>
 
 <body>
@@ -39,20 +40,22 @@
 
         <h2>Usuários cadastrados</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Matrícula</th>
-                    <th>Email</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                        <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
 
-            <tbody id="tabelaUsuarios"></tbody>
-        </table>
+                <tbody id="tabelaUsuarios"></tbody>
+            </table>
+        </div>
 
         <p id="msgVazio" style="text-align:center; color:#888; display:none;">
             Nenhum usuário encontrado
@@ -65,8 +68,8 @@
     <script src="../../js/components/loadSidebar.js"></script>
     <script src="/js/components/loadNavbar.js"></script>
     <script src="../../js/pages/usuario.js"></script>
-    
-    
+
+
 </body>
 
 </html>
